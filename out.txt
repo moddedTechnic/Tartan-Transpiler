@@ -34,6 +34,12 @@ Module(
         asname=None)],
       level=0),
     ImportFrom(
+      module='postprocessor',
+      names=[alias(
+        name='*',
+        asname=None)],
+      level=0),
+    ImportFrom(
       module='utils',
       names=[
         alias(
@@ -825,6 +831,7 @@ from ast import parse\n
 from os import makedirs as mkdir\n
 from os.path import dirname,exists,join\n
 from astunparse import dump\n
+from postprocessor import *\n
 from utils import log,setup\n
 from utils.options import Options\n
 from utils.unparser import Unparser\n

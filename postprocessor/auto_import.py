@@ -106,7 +106,7 @@ class Importer(ASTManipulator):
 							i += 1
 							if n == a.name:
 								break
-						if i >= 0:
+						if i >= 0 and names[i].name != '*':
 							names.pop(i)
 						break
 			node.names = names
