@@ -1,254 +1,5 @@
 
 
-Constant(
-  value='test\\__main__.tart',
-  kind=None)
-
-Call(
-  func=Attribute(
-    value=Name(
-      id='f',
-      ctx=Load()),
-    attr='read',
-    ctx=Load()),
-  args=[],
-  keywords=[])
-
-List(
-  elts=[
-    Constant(
-      value='math',
-      kind=None),
-    Constant(
-      value='os.path',
-      kind=None)],
-  ctx=Load())
-
-List(
-  elts=[
-    Starred(
-      value=Name(
-        id='auto_process_libs',
-        ctx=Load()),
-      ctx=Load()),
-    Constant(
-      value='os',
-      kind=None)],
-  ctx=Load())
-
-Dict(
-  keys=[
-    Constant(
-      value='5',
-      kind=None),
-    Constant(
-      value='4',
-      kind=None)],
-  values=[
-    Constant(
-      value=5,
-      kind=None),
-    Constant(
-      value='4',
-      kind=None)])
-
-Call(
-  func=Name(
-    id='Options',
-    ctx=Load()),
-  args=[],
-  keywords=[
-    keyword(
-      arg='debug',
-      value=Constant(
-        value=True,
-        kind=None)),
-    keyword(
-      arg='imports',
-      value=Name(
-        id='auto_import_libs',
-        ctx=Load())),
-    keyword(
-      arg='eval_mod',
-      value=Name(
-        id='auto_process_libs',
-        ctx=Load()))])
-
-Call(
-  func=Name(
-    id='parse',
-    ctx=Load()),
-  args=[Name(
-    id='data',
-    ctx=Load())],
-  keywords=[])
-
-Call(
-  func=Attribute(
-    value=Call(
-      func=Name(
-        id='Generator',
-        ctx=Load()),
-      args=[],
-      keywords=[keyword(
-        arg='options',
-        value=Name(
-          id='options',
-          ctx=Load()))]),
-    attr='generate',
-    ctx=Load()),
-  args=[Name(
-    id='tree',
-    ctx=Load())],
-  keywords=[])
-
-Call(
-  func=Attribute(
-    value=Call(
-      func=Name(
-        id='Optimizer',
-        ctx=Load()),
-      args=[],
-      keywords=[keyword(
-        arg='options',
-        value=Name(
-          id='options',
-          ctx=Load()))]),
-    attr='optimize',
-    ctx=Load()),
-  args=[Name(
-    id='tree',
-    ctx=Load())],
-  keywords=[])
-
-Call(
-  func=Attribute(
-    value=Call(
-      func=Name(
-        id='Importer',
-        ctx=Load()),
-      args=[],
-      keywords=[keyword(
-        arg='options',
-        value=Name(
-          id='options',
-          ctx=Load()))]),
-    attr='clean_imports',
-    ctx=Load()),
-  args=[Name(
-    id='tree',
-    ctx=Load())],
-  keywords=[])
-
-Call(
-  func=Attribute(
-    value=Call(
-      func=Name(
-        id='UnusedRemover',
-        ctx=Load()),
-      args=[],
-      keywords=[keyword(
-        arg='options',
-        value=Name(
-          id='options',
-          ctx=Load()))]),
-    attr='remove_unused',
-    ctx=Load()),
-  args=[Name(
-    id='tree',
-    ctx=Load())],
-  keywords=[])
-
-Call(
-  func=Attribute(
-    value=Name(
-      id='Unparser',
-      ctx=Load()),
-    attr='unparse',
-    ctx=Load()),
-  args=[Name(
-    id='tree',
-    ctx=Load())],
-  keywords=[])
-
-Call(
-  func=Attribute(
-    value=Call(
-      func=Name(
-        id='Minifier',
-        ctx=Load()),
-      args=[],
-      keywords=[keyword(
-        arg='options',
-        value=Name(
-          id='options',
-          ctx=Load()))]),
-    attr='minify',
-    ctx=Load()),
-  args=[Name(
-    id='code',
-    ctx=Load())],
-  keywords=[])
-
-Call(
-  func=Attribute(
-    value=Name(
-      id='fpath',
-      ctx=Load()),
-    attr='split',
-    ctx=Load()),
-  args=[Constant(
-    value='.',
-    kind=None)],
-  keywords=[])
-
-Call(
-  func=Name(
-    id='join',
-    ctx=Load()),
-  args=[
-    Constant(
-      value='dist',
-      kind=None),
-    BinOp(
-      left=Call(
-        func=Attribute(
-          value=Constant(
-            value='',
-            kind=None),
-          attr='join',
-          ctx=Load()),
-        args=[Starred(
-          value=Subscript(
-            value=Name(
-              id='path_parts',
-              ctx=Load()),
-            slice=Slice(
-              lower=None,
-              upper=UnaryOp(
-                op=USub(),
-                operand=Constant(
-                  value=1,
-                  kind=None)),
-              step=None),
-            ctx=Load()),
-          ctx=Load())],
-        keywords=[]),
-      op=Add(),
-      right=Constant(
-        value='.py',
-        kind=None))],
-  keywords=[])
-
-Call(
-  func=Name(
-    id='dirname',
-    ctx=Load()),
-  args=[Name(
-    id='out_path',
-    ctx=Load())],
-  keywords=[])
-
 Module(
   body=[
     ImportFrom(
@@ -258,70 +9,28 @@ Module(
         asname=None)],
       level=0),
     ImportFrom(
-      module='os.path',
-      names=[
-        alias(
-          name='join',
-          asname=None),
-        alias(
-          name='dirname',
-          asname=None),
-        alias(
-          name='exists',
-          asname=None)],
-      level=0),
-    ImportFrom(
       module='os',
       names=[alias(
         name='makedirs',
         asname='mkdir')],
       level=0),
     ImportFrom(
+      module='os.path',
+      names=[
+        alias(
+          name='dirname',
+          asname=None),
+        alias(
+          name='exists',
+          asname=None),
+        alias(
+          name='join',
+          asname=None)],
+      level=0),
+    ImportFrom(
       module='astunparse',
       names=[alias(
         name='dump',
-        asname=None)],
-      level=0),
-    ImportFrom(
-      module='options',
-      names=[alias(
-        name='Options',
-        asname=None)],
-      level=0),
-    ImportFrom(
-      module='generator',
-      names=[alias(
-        name='Generator',
-        asname=None)],
-      level=0),
-    ImportFrom(
-      module='optimizer',
-      names=[alias(
-        name='Optimizer',
-        asname=None)],
-      level=0),
-    ImportFrom(
-      module='auto_import',
-      names=[alias(
-        name='Importer',
-        asname=None)],
-      level=0),
-    ImportFrom(
-      module='remove_unused',
-      names=[alias(
-        name='UnusedRemover',
-        asname=None)],
-      level=0),
-    ImportFrom(
-      module='unparser',
-      names=[alias(
-        name='Unparser',
-        asname=None)],
-      level=0),
-    ImportFrom(
-      module='minifier',
-      names=[alias(
-        name='Minifier',
         asname=None)],
       level=0),
     ImportFrom(
@@ -333,6 +42,24 @@ Module(
         alias(
           name='setup',
           asname=None)],
+      level=0),
+    ImportFrom(
+      module='utils.options',
+      names=[alias(
+        name='Options',
+        asname=None)],
+      level=0),
+    ImportFrom(
+      module='utils.unparser',
+      names=[alias(
+        name='Unparser',
+        asname=None)],
+      level=0),
+    ImportFrom(
+      module='transpiler',
+      names=[alias(
+        name='Transpiler',
+        asname=None)],
       level=0),
     FunctionDef(
       name='main',
@@ -377,26 +104,67 @@ Module(
               keywords=[]),
             type_comment=None)],
           type_comment=None),
-        Expr(value=Call(
-          func=Name(
-            id='print',
-            ctx=Load()),
-          args=[Dict(
-            keys=[
-              Constant(
-                value='5',
-                kind=None),
-              Constant(
-                value='4',
-                kind=None)],
-            values=[
-              Constant(
-                value=5,
-                kind=None),
-              Constant(
-                value='4',
-                kind=None)])],
-          keywords=[])),
+        Assign(
+          targets=[Name(
+            id='data',
+            ctx=Store())],
+          value=Call(
+            func=Attribute(
+              value=Call(
+                func=Name(
+                  id='Transpiler',
+                  ctx=Load()),
+                args=[],
+                keywords=[keyword(
+                  arg='options',
+                  value=Call(
+                    func=Name(
+                      id='Options',
+                      ctx=Load()),
+                    args=[],
+                    keywords=[
+                      keyword(
+                        arg='debug',
+                        value=Constant(
+                          value=True,
+                          kind=None)),
+                      keyword(
+                        arg='imports',
+                        value=List(
+                          elts=[
+                            Starred(
+                              value=List(
+                                elts=[
+                                  Constant(
+                                    value='math',
+                                    kind=None),
+                                  Constant(
+                                    value='os.path',
+                                    kind=None)],
+                                ctx=Load()),
+                              ctx=Load()),
+                            Constant(
+                              value='os',
+                              kind=None)],
+                          ctx=Load())),
+                      keyword(
+                        arg='eval_mod',
+                        value=List(
+                          elts=[
+                            Constant(
+                              value='math',
+                              kind=None),
+                            Constant(
+                              value='os.path',
+                              kind=None)],
+                          ctx=Load()))]))]),
+              attr='transpile',
+              ctx=Load()),
+            args=[Name(
+              id='data',
+              ctx=Load())],
+            keywords=[]),
+          type_comment=None),
         Assign(
           targets=[Name(
             id='tree',
@@ -526,6 +294,67 @@ Module(
                               kind=None)],
                           ctx=Load()))]))]),
               attr='optimize',
+              ctx=Load()),
+            args=[Name(
+              id='tree',
+              ctx=Load())],
+            keywords=[]),
+          type_comment=None),
+        Assign(
+          targets=[Name(
+            id='tree',
+            ctx=Store())],
+          value=Call(
+            func=Attribute(
+              value=Call(
+                func=Name(
+                  id='Inliner',
+                  ctx=Load()),
+                args=[],
+                keywords=[keyword(
+                  arg='options',
+                  value=Call(
+                    func=Name(
+                      id='Options',
+                      ctx=Load()),
+                    args=[],
+                    keywords=[
+                      keyword(
+                        arg='debug',
+                        value=Constant(
+                          value=True,
+                          kind=None)),
+                      keyword(
+                        arg='imports',
+                        value=List(
+                          elts=[
+                            Starred(
+                              value=List(
+                                elts=[
+                                  Constant(
+                                    value='math',
+                                    kind=None),
+                                  Constant(
+                                    value='os.path',
+                                    kind=None)],
+                                ctx=Load()),
+                              ctx=Load()),
+                            Constant(
+                              value='os',
+                              kind=None)],
+                          ctx=Load())),
+                      keyword(
+                        arg='eval_mod',
+                        value=List(
+                          elts=[
+                            Constant(
+                              value='math',
+                              kind=None),
+                            Constant(
+                              value='os.path',
+                              kind=None)],
+                          ctx=Load()))]))]),
+              attr='inline',
               ctx=Load()),
             args=[Name(
               id='tree',
@@ -781,53 +610,55 @@ Module(
             keywords=[]),
           type_comment=None),
         If(
-          test=Call(
-            func=Name(
-              id='exists',
-              ctx=Load()),
-            args=[Call(
+          test=UnaryOp(
+            op=Not(),
+            operand=Call(
               func=Name(
-                id='dirname',
+                id='exists',
                 ctx=Load()),
               args=[Call(
                 func=Name(
-                  id='join',
+                  id='dirname',
                   ctx=Load()),
-                args=[
-                  Constant(
-                    value='dist',
-                    kind=None),
-                  BinOp(
-                    left=Call(
-                      func=Attribute(
-                        value=Constant(
-                          value='',
-                          kind=None),
-                        attr='join',
-                        ctx=Load()),
-                      args=[Starred(
-                        value=Subscript(
-                          value=Name(
-                            id='path_parts',
-                            ctx=Load()),
-                          slice=Slice(
-                            lower=None,
-                            upper=UnaryOp(
-                              op=USub(),
-                              operand=Constant(
-                                value=1,
-                                kind=None)),
-                            step=None),
+                args=[Call(
+                  func=Name(
+                    id='join',
+                    ctx=Load()),
+                  args=[
+                    Constant(
+                      value='dist',
+                      kind=None),
+                    BinOp(
+                      left=Call(
+                        func=Attribute(
+                          value=Constant(
+                            value='',
+                            kind=None),
+                          attr='join',
                           ctx=Load()),
-                        ctx=Load())],
-                      keywords=[]),
-                    op=Add(),
-                    right=Constant(
-                      value='.py',
-                      kind=None))],
+                        args=[Starred(
+                          value=Subscript(
+                            value=Name(
+                              id='path_parts',
+                              ctx=Load()),
+                            slice=Slice(
+                              lower=None,
+                              upper=UnaryOp(
+                                op=USub(),
+                                operand=Constant(
+                                  value=1,
+                                  kind=None)),
+                              step=None),
+                            ctx=Load()),
+                          ctx=Load())],
+                        keywords=[]),
+                      op=Add(),
+                      right=Constant(
+                        value='.py',
+                        kind=None))],
+                  keywords=[])],
                 keywords=[])],
-              keywords=[])],
-            keywords=[]),
+              keywords=[])),
           body=[Expr(value=Call(
             func=Name(
               id='mkdir',
@@ -964,28 +795,48 @@ Module(
             ctx=Load()),
           args=[],
           keywords=[]))],
+      orelse=[]),
+    If(
+      test=Compare(
+        left=Name(
+          id='__name__',
+          ctx=Load()),
+        ops=[Eq()],
+        comparators=[Constant(
+          value='__main__',
+          kind=None)]),
+      body=[
+        Expr(value=Call(
+          func=Name(
+            id='setup',
+            ctx=Load()),
+          args=[],
+          keywords=[])),
+        Expr(value=Call(
+          func=Name(
+            id='main',
+            ctx=Load()),
+          args=[],
+          keywords=[]))],
       orelse=[])],
   type_ignores=[])
 
 from ast import parse\n
-from os.path import join,dirname,exists\n
 from os import makedirs as mkdir\n
+from os.path import dirname,exists,join\n
 from astunparse import dump\n
-from options import Options\n
-from generator import Generator\n
-from optimizer import Optimizer\n
-from auto_import import Importer\n
-from remove_unused import UnusedRemover\n
-from unparser import Unparser\n
-from minifier import Minifier\n
 from utils import log,setup\n
+from utils.options import Options\n
+from utils.unparser import Unparser\n
+from transpiler import Transpiler\n
 def main():\n
 	with open('test\\__main__.tart','r') as f:\n
 		data=f.read()\n
-	print({'5':5,'4':'4'})\n
+	data=Transpiler(options=Options(debug=True,imports=[*['math','os.path'],'os'],eval_mod=['math','os.path'])).transpile(data)\n
 	tree=parse(data)\n
 	tree=Generator(options=Options(debug=True,imports=[*['math','os.path'],'os'],eval_mod=['math','os.path'])).generate(tree)\n
 	tree=Optimizer(options=Options(debug=True,imports=[*['math','os.path'],'os'],eval_mod=['math','os.path'])).optimize(tree)\n
+	tree=Inliner(options=Options(debug=True,imports=[*['math','os.path'],'os'],eval_mod=['math','os.path'])).inline(tree)\n
 	tree=Importer(options=Options(debug=True,imports=[*['math','os.path'],'os'],eval_mod=['math','os.path'])).clean_imports(tree)\n
 	tree=UnusedRemover(options=Options(debug=True,imports=[*['math','os.path'],'os'],eval_mod=['math','os.path'])).remove_unused(tree)\n
 	code=Unparser.unparse(tree)\n
@@ -993,10 +844,13 @@ def main():\n
 	log(dump(tree))\n
 	log(code.replace('\n','\\n\n'))\n
 	path_parts='test\\__main__.tart'.split('.')\n
-	if exists(dirname(join('dist',(''.join(*path_parts[:(-1)])+'.py')))):\n
+	if (not exists(dirname(join('dist',(''.join(*path_parts[:(-1)])+'.py'))))):\n
 		mkdir(dirname(join('dist',(''.join(*path_parts[:(-1)])+'.py'))))\n
 	with open(join('dist',(''.join(*path_parts[:(-1)])+'.py')),'w') as f:\n
 		f.write(code)\n
+if (__name__=='__main__'):\n
+	setup()\n
+	main()\n
 if (__name__=='__main__'):\n
 	setup()\n
 	main()
