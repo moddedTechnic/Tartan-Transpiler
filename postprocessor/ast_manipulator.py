@@ -2,8 +2,6 @@
 from ast import NodeTransformer, AST, Constant, parse
 from astunparse import unparse, dump
 
-from utils import log
-
 
 class ASTManipulator(NodeTransformer):
 	MAX_ITERATIONS = 10

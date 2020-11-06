@@ -6,7 +6,6 @@ from importlib import import_module
 from typing import Union
 
 from .ast_manipulator import ASTManipulator
-from utils import log
 
 
 class Optimizer(ASTManipulator):

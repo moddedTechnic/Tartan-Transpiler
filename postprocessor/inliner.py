@@ -2,8 +2,6 @@ from __future__ import generator_stop
 from ast import *
 from astunparse import dump
 
-from utils import log
-
 from .ast_manipulator import ASTManipulator
 
 
@@ -38,7 +36,6 @@ class Inliner(ASTManipulator):
 					if isinstance(target, Name):
 						if isinstance(target.ctx, Store):
 							self.constants[target.id] = self.generic_visit(node.value)
-							log(dump(node.value))
 
 			elif self.pass_ == 4:
 				targets = []
