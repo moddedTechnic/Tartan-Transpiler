@@ -16,10 +16,11 @@ from minifier import Minifier
 from utils import log, setup
 
 
-def main():
+def main() {
 	fpath = join('test', '__main__.tart')
-	with open(fpath, 'r') as f:
+	with open(fpath, 'r') as f {
 		data = f.read()
+	}
 	
 	auto_process_libs = [
 		'math',
@@ -49,12 +50,14 @@ def main():
 	log(code.replace('\n', '\\n\n'))
 
 	path_parts = fpath.split('.')
-	out_path = join('dist',
-	                ''.join(*path_parts[:-1]) + '.py')
+	out_path = join('dist', ''.join(*path_parts[:-1]) + '.py')
 	out_dir = dirname(out_path)
 
-	if not exists(out_dir):
-	    mkdir(out_dir)
+	if exists(out_dir) {
+		mkdir(out_dir)
+	}
 
-	with open(out_path, 'w') as f:
-	    f.write(code)
+	with open(out_path, 'w') as f {
+		f.write(code)
+	}
+}

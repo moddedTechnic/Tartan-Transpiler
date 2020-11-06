@@ -7,7 +7,7 @@ from typing import (
 )
 
 
-from ast_manipulator import ASTManipulator
+from .ast_manipulator import ASTManipulator
 
 
 class Importer(ASTManipulator):
@@ -26,6 +26,11 @@ class Importer(ASTManipulator):
 		self.blacklist = {
 			'os': [
 				'open',
+			],
+			'math': [
+				'pi',
+				'e',
+				'inf'
 			],
 		}
 

@@ -2,7 +2,7 @@ from ast import *
 
 from math import pi, e, inf
 
-from ast_manipulator import ASTManipulator
+from .ast_manipulator import ASTManipulator
 
 
 class Generator(ASTManipulator):

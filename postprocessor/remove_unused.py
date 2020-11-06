@@ -1,7 +1,7 @@
 from ast import *
 from astunparse import dump
 
-from ast_manipulator import ASTManipulator
+from .ast_manipulator import ASTManipulator
 
 
 class UnusedRemover(ASTManipulator):

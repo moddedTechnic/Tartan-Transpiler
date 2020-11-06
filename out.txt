@@ -1,5 +1,254 @@
 
 
+Constant(
+  value='test\\__main__.tart',
+  kind=None)
+
+Call(
+  func=Attribute(
+    value=Name(
+      id='f',
+      ctx=Load()),
+    attr='read',
+    ctx=Load()),
+  args=[],
+  keywords=[])
+
+List(
+  elts=[
+    Constant(
+      value='math',
+      kind=None),
+    Constant(
+      value='os.path',
+      kind=None)],
+  ctx=Load())
+
+List(
+  elts=[
+    Starred(
+      value=Name(
+        id='auto_process_libs',
+        ctx=Load()),
+      ctx=Load()),
+    Constant(
+      value='os',
+      kind=None)],
+  ctx=Load())
+
+Dict(
+  keys=[
+    Constant(
+      value='5',
+      kind=None),
+    Constant(
+      value='4',
+      kind=None)],
+  values=[
+    Constant(
+      value=5,
+      kind=None),
+    Constant(
+      value='4',
+      kind=None)])
+
+Call(
+  func=Name(
+    id='Options',
+    ctx=Load()),
+  args=[],
+  keywords=[
+    keyword(
+      arg='debug',
+      value=Constant(
+        value=True,
+        kind=None)),
+    keyword(
+      arg='imports',
+      value=Name(
+        id='auto_import_libs',
+        ctx=Load())),
+    keyword(
+      arg='eval_mod',
+      value=Name(
+        id='auto_process_libs',
+        ctx=Load()))])
+
+Call(
+  func=Name(
+    id='parse',
+    ctx=Load()),
+  args=[Name(
+    id='data',
+    ctx=Load())],
+  keywords=[])
+
+Call(
+  func=Attribute(
+    value=Call(
+      func=Name(
+        id='Generator',
+        ctx=Load()),
+      args=[],
+      keywords=[keyword(
+        arg='options',
+        value=Name(
+          id='options',
+          ctx=Load()))]),
+    attr='generate',
+    ctx=Load()),
+  args=[Name(
+    id='tree',
+    ctx=Load())],
+  keywords=[])
+
+Call(
+  func=Attribute(
+    value=Call(
+      func=Name(
+        id='Optimizer',
+        ctx=Load()),
+      args=[],
+      keywords=[keyword(
+        arg='options',
+        value=Name(
+          id='options',
+          ctx=Load()))]),
+    attr='optimize',
+    ctx=Load()),
+  args=[Name(
+    id='tree',
+    ctx=Load())],
+  keywords=[])
+
+Call(
+  func=Attribute(
+    value=Call(
+      func=Name(
+        id='Importer',
+        ctx=Load()),
+      args=[],
+      keywords=[keyword(
+        arg='options',
+        value=Name(
+          id='options',
+          ctx=Load()))]),
+    attr='clean_imports',
+    ctx=Load()),
+  args=[Name(
+    id='tree',
+    ctx=Load())],
+  keywords=[])
+
+Call(
+  func=Attribute(
+    value=Call(
+      func=Name(
+        id='UnusedRemover',
+        ctx=Load()),
+      args=[],
+      keywords=[keyword(
+        arg='options',
+        value=Name(
+          id='options',
+          ctx=Load()))]),
+    attr='remove_unused',
+    ctx=Load()),
+  args=[Name(
+    id='tree',
+    ctx=Load())],
+  keywords=[])
+
+Call(
+  func=Attribute(
+    value=Name(
+      id='Unparser',
+      ctx=Load()),
+    attr='unparse',
+    ctx=Load()),
+  args=[Name(
+    id='tree',
+    ctx=Load())],
+  keywords=[])
+
+Call(
+  func=Attribute(
+    value=Call(
+      func=Name(
+        id='Minifier',
+        ctx=Load()),
+      args=[],
+      keywords=[keyword(
+        arg='options',
+        value=Name(
+          id='options',
+          ctx=Load()))]),
+    attr='minify',
+    ctx=Load()),
+  args=[Name(
+    id='code',
+    ctx=Load())],
+  keywords=[])
+
+Call(
+  func=Attribute(
+    value=Name(
+      id='fpath',
+      ctx=Load()),
+    attr='split',
+    ctx=Load()),
+  args=[Constant(
+    value='.',
+    kind=None)],
+  keywords=[])
+
+Call(
+  func=Name(
+    id='join',
+    ctx=Load()),
+  args=[
+    Constant(
+      value='dist',
+      kind=None),
+    BinOp(
+      left=Call(
+        func=Attribute(
+          value=Constant(
+            value='',
+            kind=None),
+          attr='join',
+          ctx=Load()),
+        args=[Starred(
+          value=Subscript(
+            value=Name(
+              id='path_parts',
+              ctx=Load()),
+            slice=Slice(
+              lower=None,
+              upper=UnaryOp(
+                op=USub(),
+                operand=Constant(
+                  value=1,
+                  kind=None)),
+              step=None),
+            ctx=Load()),
+          ctx=Load())],
+        keywords=[]),
+      op=Add(),
+      right=Constant(
+        value='.py',
+        kind=None))],
+  keywords=[])
+
+Call(
+  func=Name(
+    id='dirname',
+    ctx=Load()),
+  args=[Name(
+    id='out_path',
+    ctx=Load())],
+  keywords=[])
+
 Module(
   body=[
     ImportFrom(
@@ -96,14 +345,6 @@ Module(
         kwarg=None,
         defaults=[]),
       body=[
-        Assign(
-          targets=[Name(
-            id='fpath',
-            ctx=Store())],
-          value=Constant(
-            value='test\\__main__.tart',
-            kind=None),
-          type_comment=None),
         With(
           items=[withitem(
             context_expr=Call(
@@ -111,9 +352,9 @@ Module(
                 id='open',
                 ctx=Load()),
               args=[
-                Name(
-                  id='fpath',
-                  ctx=Load()),
+                Constant(
+                  value='test\\__main__.tart',
+                  kind=None),
                 Constant(
                   value='r',
                   kind=None)],
@@ -136,62 +377,26 @@ Module(
               keywords=[]),
             type_comment=None)],
           type_comment=None),
-        Assign(
-          targets=[Name(
-            id='auto_process_libs',
-            ctx=Store())],
-          value=List(
-            elts=[
+        Expr(value=Call(
+          func=Name(
+            id='print',
+            ctx=Load()),
+          args=[Dict(
+            keys=[
               Constant(
-                value='math',
+                value='5',
                 kind=None),
               Constant(
-                value='os.path',
+                value='4',
                 kind=None)],
-            ctx=Load()),
-          type_comment=None),
-        Assign(
-          targets=[Name(
-            id='auto_import_libs',
-            ctx=Store())],
-          value=List(
-            elts=[
-              Starred(
-                value=Name(
-                  id='auto_process_libs',
-                  ctx=Load()),
-                ctx=Load()),
+            values=[
               Constant(
-                value='os',
-                kind=None)],
-            ctx=Load()),
-          type_comment=None),
-        Assign(
-          targets=[Name(
-            id='options',
-            ctx=Store())],
-          value=Call(
-            func=Name(
-              id='Options',
-              ctx=Load()),
-            args=[],
-            keywords=[
-              keyword(
-                arg='debug',
-                value=Constant(
-                  value=True,
-                  kind=None)),
-              keyword(
-                arg='imports',
-                value=Name(
-                  id='auto_import_libs',
-                  ctx=Load())),
-              keyword(
-                arg='eval_mod',
-                value=Name(
-                  id='auto_process_libs',
-                  ctx=Load()))]),
-          type_comment=None),
+                value=5,
+                kind=None),
+              Constant(
+                value='4',
+                kind=None)])],
+          keywords=[])),
         Assign(
           targets=[Name(
             id='tree',
@@ -218,9 +423,47 @@ Module(
                 args=[],
                 keywords=[keyword(
                   arg='options',
-                  value=Name(
-                    id='options',
-                    ctx=Load()))]),
+                  value=Call(
+                    func=Name(
+                      id='Options',
+                      ctx=Load()),
+                    args=[],
+                    keywords=[
+                      keyword(
+                        arg='debug',
+                        value=Constant(
+                          value=True,
+                          kind=None)),
+                      keyword(
+                        arg='imports',
+                        value=List(
+                          elts=[
+                            Starred(
+                              value=List(
+                                elts=[
+                                  Constant(
+                                    value='math',
+                                    kind=None),
+                                  Constant(
+                                    value='os.path',
+                                    kind=None)],
+                                ctx=Load()),
+                              ctx=Load()),
+                            Constant(
+                              value='os',
+                              kind=None)],
+                          ctx=Load())),
+                      keyword(
+                        arg='eval_mod',
+                        value=List(
+                          elts=[
+                            Constant(
+                              value='math',
+                              kind=None),
+                            Constant(
+                              value='os.path',
+                              kind=None)],
+                          ctx=Load()))]))]),
               attr='generate',
               ctx=Load()),
             args=[Name(
@@ -241,9 +484,47 @@ Module(
                 args=[],
                 keywords=[keyword(
                   arg='options',
-                  value=Name(
-                    id='options',
-                    ctx=Load()))]),
+                  value=Call(
+                    func=Name(
+                      id='Options',
+                      ctx=Load()),
+                    args=[],
+                    keywords=[
+                      keyword(
+                        arg='debug',
+                        value=Constant(
+                          value=True,
+                          kind=None)),
+                      keyword(
+                        arg='imports',
+                        value=List(
+                          elts=[
+                            Starred(
+                              value=List(
+                                elts=[
+                                  Constant(
+                                    value='math',
+                                    kind=None),
+                                  Constant(
+                                    value='os.path',
+                                    kind=None)],
+                                ctx=Load()),
+                              ctx=Load()),
+                            Constant(
+                              value='os',
+                              kind=None)],
+                          ctx=Load())),
+                      keyword(
+                        arg='eval_mod',
+                        value=List(
+                          elts=[
+                            Constant(
+                              value='math',
+                              kind=None),
+                            Constant(
+                              value='os.path',
+                              kind=None)],
+                          ctx=Load()))]))]),
               attr='optimize',
               ctx=Load()),
             args=[Name(
@@ -264,9 +545,47 @@ Module(
                 args=[],
                 keywords=[keyword(
                   arg='options',
-                  value=Name(
-                    id='options',
-                    ctx=Load()))]),
+                  value=Call(
+                    func=Name(
+                      id='Options',
+                      ctx=Load()),
+                    args=[],
+                    keywords=[
+                      keyword(
+                        arg='debug',
+                        value=Constant(
+                          value=True,
+                          kind=None)),
+                      keyword(
+                        arg='imports',
+                        value=List(
+                          elts=[
+                            Starred(
+                              value=List(
+                                elts=[
+                                  Constant(
+                                    value='math',
+                                    kind=None),
+                                  Constant(
+                                    value='os.path',
+                                    kind=None)],
+                                ctx=Load()),
+                              ctx=Load()),
+                            Constant(
+                              value='os',
+                              kind=None)],
+                          ctx=Load())),
+                      keyword(
+                        arg='eval_mod',
+                        value=List(
+                          elts=[
+                            Constant(
+                              value='math',
+                              kind=None),
+                            Constant(
+                              value='os.path',
+                              kind=None)],
+                          ctx=Load()))]))]),
               attr='clean_imports',
               ctx=Load()),
             args=[Name(
@@ -287,9 +606,47 @@ Module(
                 args=[],
                 keywords=[keyword(
                   arg='options',
-                  value=Name(
-                    id='options',
-                    ctx=Load()))]),
+                  value=Call(
+                    func=Name(
+                      id='Options',
+                      ctx=Load()),
+                    args=[],
+                    keywords=[
+                      keyword(
+                        arg='debug',
+                        value=Constant(
+                          value=True,
+                          kind=None)),
+                      keyword(
+                        arg='imports',
+                        value=List(
+                          elts=[
+                            Starred(
+                              value=List(
+                                elts=[
+                                  Constant(
+                                    value='math',
+                                    kind=None),
+                                  Constant(
+                                    value='os.path',
+                                    kind=None)],
+                                ctx=Load()),
+                              ctx=Load()),
+                            Constant(
+                              value='os',
+                              kind=None)],
+                          ctx=Load())),
+                      keyword(
+                        arg='eval_mod',
+                        value=List(
+                          elts=[
+                            Constant(
+                              value='math',
+                              kind=None),
+                            Constant(
+                              value='os.path',
+                              kind=None)],
+                          ctx=Load()))]))]),
               attr='remove_unused',
               ctx=Load()),
             args=[Name(
@@ -326,9 +683,47 @@ Module(
                 args=[],
                 keywords=[keyword(
                   arg='options',
-                  value=Name(
-                    id='options',
-                    ctx=Load()))]),
+                  value=Call(
+                    func=Name(
+                      id='Options',
+                      ctx=Load()),
+                    args=[],
+                    keywords=[
+                      keyword(
+                        arg='debug',
+                        value=Constant(
+                          value=True,
+                          kind=None)),
+                      keyword(
+                        arg='imports',
+                        value=List(
+                          elts=[
+                            Starred(
+                              value=List(
+                                elts=[
+                                  Constant(
+                                    value='math',
+                                    kind=None),
+                                  Constant(
+                                    value='os.path',
+                                    kind=None)],
+                                ctx=Load()),
+                              ctx=Load()),
+                            Constant(
+                              value='os',
+                              kind=None)],
+                          ctx=Load())),
+                      keyword(
+                        arg='eval_mod',
+                        value=List(
+                          elts=[
+                            Constant(
+                              value='math',
+                              kind=None),
+                            Constant(
+                              value='os.path',
+                              kind=None)],
+                          ctx=Load()))]))]),
               attr='minify',
               ctx=Load()),
             args=[Name(
@@ -375,9 +770,9 @@ Module(
             ctx=Store())],
           value=Call(
             func=Attribute(
-              value=Name(
-                id='fpath',
-                ctx=Load()),
+              value=Constant(
+                value='test\\__main__.tart',
+                kind=None),
               attr='split',
               ctx=Load()),
             args=[Constant(
@@ -385,79 +780,100 @@ Module(
               kind=None)],
             keywords=[]),
           type_comment=None),
-        Assign(
-          targets=[Name(
-            id='out_path',
-            ctx=Store())],
-          value=Call(
-            func=Name(
-              id='join',
-              ctx=Load()),
-            args=[
-              Constant(
-                value='dist',
-                kind=None),
-              BinOp(
-                left=Call(
-                  func=Attribute(
-                    value=Constant(
-                      value='',
-                      kind=None),
-                    attr='join',
-                    ctx=Load()),
-                  args=[Starred(
-                    value=Subscript(
-                      value=Name(
-                        id='path_parts',
-                        ctx=Load()),
-                      slice=Slice(
-                        lower=None,
-                        upper=UnaryOp(
-                          op=USub(),
-                          operand=Constant(
-                            value=1,
-                            kind=None)),
-                        step=None),
-                      ctx=Load()),
-                    ctx=Load())],
-                  keywords=[]),
-                op=Add(),
-                right=Constant(
-                  value='.py',
-                  kind=None))],
-            keywords=[]),
-          type_comment=None),
-        Assign(
-          targets=[Name(
-            id='out_dir',
-            ctx=Store())],
-          value=Call(
-            func=Name(
-              id='dirname',
-              ctx=Load()),
-            args=[Name(
-              id='out_path',
-              ctx=Load())],
-            keywords=[]),
-          type_comment=None),
         If(
-          test=UnaryOp(
-            op=Not(),
-            operand=Call(
+          test=Call(
+            func=Name(
+              id='exists',
+              ctx=Load()),
+            args=[Call(
               func=Name(
-                id='exists',
+                id='dirname',
                 ctx=Load()),
-              args=[Name(
-                id='out_dir',
-                ctx=Load())],
-              keywords=[])),
+              args=[Call(
+                func=Name(
+                  id='join',
+                  ctx=Load()),
+                args=[
+                  Constant(
+                    value='dist',
+                    kind=None),
+                  BinOp(
+                    left=Call(
+                      func=Attribute(
+                        value=Constant(
+                          value='',
+                          kind=None),
+                        attr='join',
+                        ctx=Load()),
+                      args=[Starred(
+                        value=Subscript(
+                          value=Name(
+                            id='path_parts',
+                            ctx=Load()),
+                          slice=Slice(
+                            lower=None,
+                            upper=UnaryOp(
+                              op=USub(),
+                              operand=Constant(
+                                value=1,
+                                kind=None)),
+                            step=None),
+                          ctx=Load()),
+                        ctx=Load())],
+                      keywords=[]),
+                    op=Add(),
+                    right=Constant(
+                      value='.py',
+                      kind=None))],
+                keywords=[])],
+              keywords=[])],
+            keywords=[]),
           body=[Expr(value=Call(
             func=Name(
               id='mkdir',
               ctx=Load()),
-            args=[Name(
-              id='out_dir',
-              ctx=Load())],
+            args=[Call(
+              func=Name(
+                id='dirname',
+                ctx=Load()),
+              args=[Call(
+                func=Name(
+                  id='join',
+                  ctx=Load()),
+                args=[
+                  Constant(
+                    value='dist',
+                    kind=None),
+                  BinOp(
+                    left=Call(
+                      func=Attribute(
+                        value=Constant(
+                          value='',
+                          kind=None),
+                        attr='join',
+                        ctx=Load()),
+                      args=[Starred(
+                        value=Subscript(
+                          value=Name(
+                            id='path_parts',
+                            ctx=Load()),
+                          slice=Slice(
+                            lower=None,
+                            upper=UnaryOp(
+                              op=USub(),
+                              operand=Constant(
+                                value=1,
+                                kind=None)),
+                            step=None),
+                          ctx=Load()),
+                        ctx=Load())],
+                      keywords=[]),
+                    op=Add(),
+                    right=Constant(
+                      value='.py',
+                      kind=None))],
+                keywords=[])],
+              keywords=[])],
             keywords=[]))],
           orelse=[]),
         With(
@@ -467,9 +883,43 @@ Module(
                 id='open',
                 ctx=Load()),
               args=[
-                Name(
-                  id='out_path',
-                  ctx=Load()),
+                Call(
+                  func=Name(
+                    id='join',
+                    ctx=Load()),
+                  args=[
+                    Constant(
+                      value='dist',
+                      kind=None),
+                    BinOp(
+                      left=Call(
+                        func=Attribute(
+                          value=Constant(
+                            value='',
+                            kind=None),
+                          attr='join',
+                          ctx=Load()),
+                        args=[Starred(
+                          value=Subscript(
+                            value=Name(
+                              id='path_parts',
+                              ctx=Load()),
+                            slice=Slice(
+                              lower=None,
+                              upper=UnaryOp(
+                                op=USub(),
+                                operand=Constant(
+                                  value=1,
+                                  kind=None)),
+                              step=None),
+                            ctx=Load()),
+                          ctx=Load())],
+                        keywords=[]),
+                      op=Add(),
+                      right=Constant(
+                        value='.py',
+                        kind=None))],
+                  keywords=[]),
                 Constant(
                   value='w',
                   kind=None)],
@@ -530,27 +980,22 @@ from unparser import Unparser\n
 from minifier import Minifier\n
 from utils import log,setup\n
 def main():\n
-	fpath='test\\__main__.tart'\n
-	with open(fpath,'r') as f:\n
+	with open('test\\__main__.tart','r') as f:\n
 		data=f.read()\n
-	auto_process_libs=['math','os.path']\n
-	auto_import_libs=[*auto_process_libs,'os']\n
-	options=Options(debug=True,imports=auto_import_libs,eval_mod=auto_process_libs)\n
+	print({'5':5,'4':'4'})\n
 	tree=parse(data)\n
-	tree=Generator(options=options).generate(tree)\n
-	tree=Optimizer(options=options).optimize(tree)\n
-	tree=Importer(options=options).clean_imports(tree)\n
-	tree=UnusedRemover(options=options).remove_unused(tree)\n
+	tree=Generator(options=Options(debug=True,imports=[*['math','os.path'],'os'],eval_mod=['math','os.path'])).generate(tree)\n
+	tree=Optimizer(options=Options(debug=True,imports=[*['math','os.path'],'os'],eval_mod=['math','os.path'])).optimize(tree)\n
+	tree=Importer(options=Options(debug=True,imports=[*['math','os.path'],'os'],eval_mod=['math','os.path'])).clean_imports(tree)\n
+	tree=UnusedRemover(options=Options(debug=True,imports=[*['math','os.path'],'os'],eval_mod=['math','os.path'])).remove_unused(tree)\n
 	code=Unparser.unparse(tree)\n
-	code=Minifier(options=options).minify(code)\n
+	code=Minifier(options=Options(debug=True,imports=[*['math','os.path'],'os'],eval_mod=['math','os.path'])).minify(code)\n
 	log(dump(tree))\n
 	log(code.replace('\n','\\n\n'))\n
-	path_parts=fpath.split('.')\n
-	out_path=join('dist',(''.join(*path_parts[:(-1)])+'.py'))\n
-	out_dir=dirname(out_path)\n
-	if (not exists(out_dir)):\n
-		mkdir(out_dir)\n
-	with open(out_path,'w') as f:\n
+	path_parts='test\\__main__.tart'.split('.')\n
+	if exists(dirname(join('dist',(''.join(*path_parts[:(-1)])+'.py')))):\n
+		mkdir(dirname(join('dist',(''.join(*path_parts[:(-1)])+'.py'))))\n
+	with open(join('dist',(''.join(*path_parts[:(-1)])+'.py')),'w') as f:\n
 		f.write(code)\n
 if (__name__=='__main__'):\n
 	setup()\n

@@ -1,19 +1,14 @@
 from ast import parse
-
-from os.path import join, dirname, exists
 from os import makedirs as mkdir
+from os.path import dirname, exists, join
 
-from astunparse import unparse, dump
+from astunparse import dump
 
-from options import Options
-from generator import Generator
-from optimizer import Optimizer
-from auto_import import Importer
-from remove_unused import UnusedRemover
-from unparser import Unparser
-from minifier import Minifier
-
+from postprocessor import *
 from utils import log, setup
+from utils.options import Options
+from utils.unparser import Unparser
+from transpiler import Transpiler
 
 
 def main():
@@ -37,9 +32,11 @@ def main():
 		eval_mod=auto_process_libs,
 	)
 
+	data = Transpiler(options=options).transpile(data)
 	tree = parse(data)
 	tree = Generator(options=options).generate(tree)
 	tree = Optimizer(options=options).optimize(tree)
+	tree = Inliner(options=options).inline(tree)
 	tree = Importer( options=options).clean_imports(tree)
 	tree = UnusedRemover(options=options).remove_unused(tree)
 	code = Unparser.unparse(tree)

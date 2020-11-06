@@ -1,9 +1,13 @@
 
 from ast import NodeTransformer, AST, Constant, parse
-from astunparse import unparse
+from astunparse import unparse, dump
+
+from utils import log
 
 
 class ASTManipulator(NodeTransformer):
+	MAX_ITERATIONS = 10
+	
 	def __init__(self, *args, **kwargs):
 		super().__init__()
 		self.modified = False
@@ -15,7 +19,8 @@ class ASTManipulator(NodeTransformer):
 
 	def process(self, tree: AST) -> AST:
 		self.modified = True
-		while self.modified:
+		i = 0
+		while self.modified and (i := i + 1) < self.MAX_ITERATIONS:
 			self.modified = False
 			tree = self.visit(tree)
 		return parse(unparse(tree))
