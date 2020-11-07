@@ -29,9 +29,19 @@ class UnusedRemover(ASTManipulator):
 			if self.removal_pass:
 				if node.name not in self.names:
 					self.modified = True
-					return None
+					return
 			else:
 				self.functions.add(node.name)
+
+		return node
+
+	def visit_Assign(self, node: Assign) -> AST:
+		node = self.generic_visit(node)
+
+		if isinstance(node, Assign):
+			if isinstance(node.value, Name):
+				if node.value.id in ('NO_INLINE',):
+					return
 
 		return node
 

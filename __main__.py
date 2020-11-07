@@ -1,6 +1,7 @@
 from ast import parse
-from os import makedirs as mkdir
-from os.path import dirname, exists, join
+from os import getcwd, makedirs as mkdir
+from os.path import abspath, dirname, exists, join
+from sys import argv
 
 from astunparse import dump
 
@@ -12,7 +13,7 @@ from transpiler import Transpiler
 
 
 def main():
-	fpath = join('test', '__main__.tart')
+	fpath = argv[1]
 	with open(fpath, 'r') as f:
 		data = f.read()
 	
@@ -46,15 +47,15 @@ def main():
 	log(code.replace('\n', '\\n\n'))
 
 	path_parts = fpath.split('.')
-	out_path = join('dist',
-	                ''.join(*path_parts[:-1]) + '.py')
+	out_path = join(getcwd(), 'dist',
+					''.join(path_parts[:-1])[1:] + '.py')
 	out_dir = dirname(out_path)
 
 	if not exists(out_dir):
-	    mkdir(out_dir)
+		mkdir(out_dir)
 
 	with open(out_path, 'w') as f:
-	    f.write(code)
+		f.write(code)
 
 if __name__ == '__main__':
 	setup()

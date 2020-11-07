@@ -44,7 +44,7 @@ class Inliner(ASTManipulator):
 						targets.append(target)
 				node.targets = targets
 				if len(targets) == 0:
-					return None
+					return
 
 		return node
 

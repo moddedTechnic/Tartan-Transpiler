@@ -28,6 +28,12 @@ Module(
           asname=None)],
       level=0),
     ImportFrom(
+      module='sys',
+      names=[alias(
+        name='argv',
+        asname=None)],
+      level=0),
+    ImportFrom(
       module='astunparse',
       names=[alias(
         name='dump',
@@ -78,6 +84,14 @@ Module(
         kwarg=None,
         defaults=[]),
       body=[
+        Expr(value=Call(
+          func=Name(
+            id='print',
+            ctx=Load()),
+          args=[Constant(
+            value='New',
+            kind=None)],
+          keywords=[])),
         With(
           items=[withitem(
             context_expr=Call(
@@ -85,9 +99,14 @@ Module(
                 id='open',
                 ctx=Load()),
               args=[
-                Constant(
-                  value='test\\__main__.tart',
-                  kind=None),
+                Subscript(
+                  value=Name(
+                    id='argv',
+                    ctx=Load()),
+                  slice=Index(value=Constant(
+                    value=1,
+                    kind=None)),
+                  ctx=Load()),
                 Constant(
                   value='r',
                   kind=None)],
@@ -605,9 +624,14 @@ Module(
             ctx=Store())],
           value=Call(
             func=Attribute(
-              value=Constant(
-                value='test\\__main__.tart',
-                kind=None),
+              value=Subscript(
+                value=Name(
+                  id='argv',
+                  ctx=Load()),
+                slice=Index(value=Constant(
+                  value=1,
+                  kind=None)),
+                ctx=Load()),
               attr='split',
               ctx=Load()),
             args=[Constant(
@@ -642,20 +666,18 @@ Module(
                             kind=None),
                           attr='join',
                           ctx=Load()),
-                        args=[Starred(
-                          value=Subscript(
-                            value=Name(
-                              id='path_parts',
-                              ctx=Load()),
-                            slice=Slice(
-                              lower=None,
-                              upper=UnaryOp(
-                                op=USub(),
-                                operand=Constant(
-                                  value=1,
-                                  kind=None)),
-                              step=None),
+                        args=[Subscript(
+                          value=Name(
+                            id='path_parts',
                             ctx=Load()),
+                          slice=Slice(
+                            lower=None,
+                            upper=UnaryOp(
+                              op=USub(),
+                              operand=Constant(
+                                value=1,
+                                kind=None)),
+                            step=None),
                           ctx=Load())],
                         keywords=[]),
                       op=Add(),
@@ -689,20 +711,18 @@ Module(
                           kind=None),
                         attr='join',
                         ctx=Load()),
-                      args=[Starred(
-                        value=Subscript(
-                          value=Name(
-                            id='path_parts',
-                            ctx=Load()),
-                          slice=Slice(
-                            lower=None,
-                            upper=UnaryOp(
-                              op=USub(),
-                              operand=Constant(
-                                value=1,
-                                kind=None)),
-                            step=None),
+                      args=[Subscript(
+                        value=Name(
+                          id='path_parts',
                           ctx=Load()),
+                        slice=Slice(
+                          lower=None,
+                          upper=UnaryOp(
+                            op=USub(),
+                            operand=Constant(
+                              value=1,
+                              kind=None)),
+                          step=None),
                         ctx=Load())],
                       keywords=[]),
                     op=Add(),
@@ -736,20 +756,18 @@ Module(
                             kind=None),
                           attr='join',
                           ctx=Load()),
-                        args=[Starred(
-                          value=Subscript(
-                            value=Name(
-                              id='path_parts',
-                              ctx=Load()),
-                            slice=Slice(
-                              lower=None,
-                              upper=UnaryOp(
-                                op=USub(),
-                                operand=Constant(
-                                  value=1,
-                                  kind=None)),
-                              step=None),
+                        args=[Subscript(
+                          value=Name(
+                            id='path_parts',
                             ctx=Load()),
+                          slice=Slice(
+                            lower=None,
+                            upper=UnaryOp(
+                              op=USub(),
+                              operand=Constant(
+                                value=1,
+                                kind=None)),
+                            step=None),
                           ctx=Load())],
                         keywords=[]),
                       op=Add(),
@@ -801,35 +819,13 @@ Module(
             ctx=Load()),
           args=[],
           keywords=[]))],
-      orelse=[]),
-    If(
-      test=Compare(
-        left=Name(
-          id='__name__',
-          ctx=Load()),
-        ops=[Eq()],
-        comparators=[Constant(
-          value='__main__',
-          kind=None)]),
-      body=[
-        Expr(value=Call(
-          func=Name(
-            id='setup',
-            ctx=Load()),
-          args=[],
-          keywords=[])),
-        Expr(value=Call(
-          func=Name(
-            id='main',
-            ctx=Load()),
-          args=[],
-          keywords=[]))],
       orelse=[])],
   type_ignores=[])
 
 from ast import parse\n
 from os import makedirs as mkdir\n
 from os.path import dirname,exists,join\n
+from sys import argv\n
 from astunparse import dump\n
 from postprocessor import *\n
 from utils import log,setup\n
@@ -837,7 +833,8 @@ from utils.options import Options\n
 from utils.unparser import Unparser\n
 from transpiler import Transpiler\n
 def main():\n
-	with open('test\\__main__.tart','r') as f:\n
+	print('New')\n
+	with open(argv[1],'r') as f:\n
 		data=f.read()\n
 	data=Transpiler(options=Options(debug=True,imports=[*['math','os.path'],'os'],eval_mod=['math','os.path'])).transpile(data)\n
 	tree=parse(data)\n
@@ -850,14 +847,11 @@ def main():\n
 	code=Minifier(options=Options(debug=True,imports=[*['math','os.path'],'os'],eval_mod=['math','os.path'])).minify(code)\n
 	log(dump(tree))\n
 	log(code.replace('\n','\\n\n'))\n
-	path_parts='test\\__main__.tart'.split('.')\n
-	if (not exists(dirname(join('dist',(''.join(*path_parts[:(-1)])+'.py'))))):\n
-		mkdir(dirname(join('dist',(''.join(*path_parts[:(-1)])+'.py'))))\n
-	with open(join('dist',(''.join(*path_parts[:(-1)])+'.py')),'w') as f:\n
+	path_parts=argv[1].split('.')\n
+	if (not exists(dirname(join('dist',(''.join(path_parts[:(-1)])+'.py'))))):\n
+		mkdir(dirname(join('dist',(''.join(path_parts[:(-1)])+'.py'))))\n
+	with open(join('dist',(''.join(path_parts[:(-1)])+'.py')),'w') as f:\n
 		f.write(code)\n
-if (__name__=='__main__'):\n
-	setup()\n
-	main()\n
 if (__name__=='__main__'):\n
 	setup()\n
 	main()
