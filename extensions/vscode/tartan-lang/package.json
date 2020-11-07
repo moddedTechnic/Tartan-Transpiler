@@ -1,0 +1,25 @@
+{
+    "name": "tartan-lang",
+    "displayName": "Tartan Lang",
+    "description": "Syntax highlighting for the Tartan language",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.51.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "tartan",
+            "aliases": ["Tartan", "tartan"],
+            "extensions": [".tart"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "tartan",
+            "scopeName": "source.tartan",
+            "path": "./syntaxes/tartan.tmLanguage.json"
+        }]
+    }
+}
