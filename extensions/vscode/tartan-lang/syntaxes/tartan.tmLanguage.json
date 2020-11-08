@@ -3,8 +3,11 @@
 	"comment": "Adapted from the Python plugin for VSCode, which was built from MagicPython: https://github.com/MagicStack/MagicPython/blob/master/grammars/src/MagicPython.syntax.yaml",
 	"name": "Tartan",
 	"scopeName": "source.tartan",
-	"patterns": [{ "include": "#statement" }, { "include": "#expression" }],
+	"patterns": [{ "include": "#base" }],
 	"repository": {
+		"base": {
+			"patterns": [{ "include": "#statement" }, { "include": "#expression" }]
+		},
 		"impossible": {
 			"comment": "This is a special rule that should be used where no match is desired. It is not a good idea to match something like '1{0}' because in some cases that can result in infinite loops in token generation. So the rule instead matches and impossible expression to allow a match to fail and move to the next token.",
 			"match": "$.^"
@@ -212,7 +215,8 @@
 			"patterns": [
 				{ "include": "#comments" },
 				{ "include": "#expression-bare" },
-				{ "include": "#line-continuation" }
+				{ "include": "#line-continuation" },
+				{ "include": "#preprocessor-directives" }
 			]
 		},
 		"expression": {
@@ -393,12 +397,6 @@
 			"name": "constant.numeric.bin.tartan",
 			"match": "(?x)\n  (?<![\\w\\.])\n    (0[bB]) (_?[01])+\n  \\b\n",
 			"captures": { "1": { "name": "storage.type.number.tartan" } }
-		},
-		"number-long": {
-			"name": "constant.numeric.bin.tartan",
-			"comment": "this is to support tartan2 syntax for long ints",
-			"match": "(?x)\n  (?<![\\w\\.])\n    ([1-9][0-9]* | 0) ([lL])\n  \\b\n",
-			"captures": { "2": { "name": "storage.type.number.tartan" } }
 		},
 		"regexp": {
 			"patterns": [
@@ -3240,6 +3238,29 @@
 				{ "name": "storage.type.format.tartan", "match": "([<>=^])" },
 				{ "name": "storage.type.format.tartan", "match": "(\\w)" }
 			]
+		},
+
+		"preprocessor-directives": {
+			"patterns": [{ "include": "#region" }]
+		},
+		"region": {
+			"begin": "^\\s*(#)\\s*(<)\\s*(region)\\b(.*)(>)",
+			"beginCaptures": {
+				"1": { "name": "punctuation.definition.comment.tartan" },
+				"2": { "name": "meta.cast" },
+				"3": { "name": "meta.preprocessor" },
+				"4": { "name": "meta.preprocessor.string" },
+				"5": { "name": "meta.cast" }
+			},
+			"end": "^\\s*(#)\\s*(</)\\s*(region)\\b(.*)(>)",
+			"endCaptures": {
+				"1": { "name": "punctuation.definition.comment.tartan" },
+				"2": { "name": "meta.cast" },
+				"3": { "name": "meta.preprocessor" },
+				"4": { "name": "meta.preprocessor.string" },
+				"5": { "name": "meta.cast" }
+			},
+			"patterns": [{ "include": "#base" }]
 		}
 	}
 }
