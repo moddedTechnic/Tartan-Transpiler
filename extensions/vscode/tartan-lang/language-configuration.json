@@ -43,7 +43,7 @@
 	"folding": {
 		"markers": {
 			"start": "^\\s*#\\s*<\\s*region\\b.*>",
-			"end": "^\\s*#\\s*<\\s*/region\\b.*>"
+			"end": "^\\s*#\\s*</\\s*region\\b.*>"
 		}
 	}
 }
