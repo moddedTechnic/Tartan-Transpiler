@@ -84,14 +84,6 @@ Module(
         kwarg=None,
         defaults=[]),
       body=[
-        Expr(value=Call(
-          func=Name(
-            id='print',
-            ctx=Load()),
-          args=[Constant(
-            value='New',
-            kind=None)],
-          keywords=[])),
         With(
           items=[withitem(
             context_expr=Call(
@@ -833,7 +825,6 @@ from utils.options import Options\n
 from utils.unparser import Unparser\n
 from transpiler import Transpiler\n
 def main():\n
-	print('New')\n
 	with open(argv[1],'r') as f:\n
 		data=f.read()\n
 	data=Transpiler(options=Options(debug=True,imports=[*['math','os.path'],'os'],eval_mod=['math','os.path'])).transpile(data)\n

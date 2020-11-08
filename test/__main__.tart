@@ -17,6 +17,8 @@ def main() {
 	with open(fpath, 'r') as f {
 		data = f.read()
 	}
+
+	## this is a comment
 	
 	auto_process_libs = [
 		'math',
