@@ -1,0 +1,179 @@
+{
+	"if": {
+		"prefix": "if",
+		"body": ["if ${1:true} {", "\t${2:pass}", "}"],
+		"description": "Code snippet for an if statement"
+	},
+	"else if": {
+		"prefix": "else if",
+		"body": ["else if ${1:true} {", "\t${2:pass}", "}"],
+		"description": "Code snippet for an else if statement"
+	},
+	"else": {
+		"prefix": "else",
+		"body": ["else {", "\t${1:pass}", "}"],
+		"description": "Code snippet for an else statement"
+	},
+
+	"while": {
+		"prefix": "while",
+		"body": ["while ${1:true} {", "\t${2:pass}", "}"],
+		"description": "Code snippet for a while loop"
+	},
+	"for": {
+		"prefix": "for",
+		"body": [
+			"for ${1:i} in ${2:range(${3:x}${4:, ${5:y}})} {",
+			"\t${6:pass}",
+			"}"
+		],
+		"description": "Code snippet for a for loop"
+	},
+
+	"try": {
+		"prefix": "try",
+		"body": ["try {", "\t${1:pass}", "}"],
+		"description": "Code snippet for a try statement"
+	},
+	"except": {
+		"prefix": "except",
+		"body": ["except ${1:Exception}${2: as ${3:e}} {", "\t${4:pass}", "}"],
+		"description": "Code snippet for an except statement"
+	},
+	"finally": {
+		"prefix": "finally",
+		"body": ["finally {", "\t${1:pass}", "}"],
+		"description": "Code snippet for a finally statement"
+	},
+
+	"with": {
+		"prefix": "with",
+		"body": ["with ${1:x} as ${2:y} {", "\t${1:pass}", "}"],
+		"description": "Code snippet for a with statement"
+	},
+
+	"def": {
+		"prefix": "def",
+		"body": [
+			"def ${1:name}(${2:parameter_list}) {",
+			"\t'''${3:docstring}'''",
+			"\t${4:pass}",
+			"}"
+		],
+		"description": "Code snippet for a function definition"
+	},
+	"def(method)": {
+		"prefix": "def(method)",
+		"body": [
+			"def ${1:name}(self, ${2:parameter_list}) {",
+			"\t'''${3:docstring}'''",
+			"\t${4:pass}",
+			"}"
+		],
+		"description": "Code snippet for a method definition"
+	},
+	"def(static method)": {
+		"prefix": "def(static method)",
+		"body": [
+			"@staticmethod",
+			"def ${1:name}(${2:parameter_list}) {",
+			"\t'''${3:docstring}'''",
+			"\t${4:pass}",
+			"}"
+		],
+		"description": "Code snippet for a static method definition"
+	},
+	"def(class method)": {
+		"prefix": "def(class method)",
+		"body": [
+			"@classmethod",
+			"def ${1:name}(${2:parameter_list}) {",
+			"\t'''${3:docstring}'''",
+			"\t${4:pass}",
+			"}"
+		],
+		"description": "Code snippet for a class method definition"
+	},
+	"def(abstract method)": {
+		"prefix": "def(abtract method)",
+		"body": [
+			"def ${1:name}(self, ${2:parameter_list}) {",
+			"\t'''${3:docstring}'''",
+			"\traise NotImplementedError",
+			"}"
+		],
+		"description": "Code snippet for an abstract method definition"
+	},
+	"def(abstract static method)": {
+		"prefix": "def(abstract static method)",
+		"body": [
+			"@staticmethod",
+			"def ${1:name}(${2:parameter_list}) {",
+			"\t'''${3:docstring}'''",
+			"\traise NotImplementedError",
+			"}"
+		],
+		"description": "Code snippet for an abstract static method definition"
+	},
+	"def(abstract class method)": {
+		"prefix": "def(abstract class method)",
+		"body": [
+			"@classmethod",
+			"def ${1:name}(${2:parameter_list}) {",
+			"\t'''${3:docstring}'''",
+			"\traise NotImplementedError",
+			"}"
+		],
+		"description": "Code snippet for an abstract class method definition"
+	},
+
+	"class": {
+		"prefix": "class",
+		"body": [
+			"class ${1:classname}${2:(${3:object})} {",
+			"\t'''${4:docstring}'''",
+			"\t${5:pass}",
+			"}"
+		],
+		"description": "Code snippet for a class definition"
+	},
+
+	"lambda": {
+		"prefix": "lambda",
+        "body": ["lambda${1: ${2:args}}{ ${2:NOOP}}"],
+        "description": "Code snippet for a lambda statement"
+    },
+    
+    "main": {
+        "prefix":"main",
+        "body": [
+            "def main(${1:argv}) {",
+            "\t${2:pass}",
+            "}"
+        ]
+    },
+
+    "async def": {
+        "prefix": "async def",
+        "body": [
+            "async def ${1:name}(${2:parameter_list}) {",
+            "\t'''${3:docstring}'''",
+            "\t${4:pass}"
+        ],
+        "description": "Code snippet for an async function definition"
+    },
+    "async for": {
+        "prefix": "async for",
+		"body": [
+			"async for ${1:i} in ${2:range(${3:x}${4:, ${5:y}})} {",
+			"\t${6:pass}",
+			"}"
+		],
+		"description": "Code snippet for an async for loop"
+    },
+    "async with": {
+		"prefix": "async with",
+		"body": ["async with ${1:x} as ${2:y} {", "\t${1:pass}", "}"],
+		"description": "Code snippet for an async with statement"
+	}
+}
