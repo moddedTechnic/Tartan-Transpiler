@@ -269,7 +269,8 @@
 			},
 			"patterns": [
 				{ "name": "punctuation.separator.dict.tartan", "match": ":" },
-				{ "include": "#expression" }
+				{ "include": "#expression" },
+				{ "include": "#statement" }
 			]
 		},
 		"list": {
