@@ -57,7 +57,7 @@ def debug(*args, **kwargs):
 			'true': True,
 			'false': False,
 			'null': None,
-			'NOOP': None,
+			'noop': None,
 
 			'QUARTER_PI': pi / 4,
 			'HALF_PI': pi / 2,
