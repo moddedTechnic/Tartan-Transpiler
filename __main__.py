@@ -10,6 +10,7 @@ from utils import log, setup
 from utils.options import Options
 from utils.unparser import Unparser
 from transpiler import Transpiler
+from preprocessor import PreProcessor
 
 
 def main():
@@ -33,6 +34,7 @@ def main():
 		eval_mod=auto_process_libs,
 	)
 
+	data = PreProcessor(options=options).preprocess(data)
 	data = Transpiler(options=options).transpile(data)
 	tree = parse(data)
 	tree = Generator(options=options).generate(tree)
