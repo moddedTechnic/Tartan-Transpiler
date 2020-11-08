@@ -32,8 +32,8 @@
 				{
 					"name": "comment.line.number-sign.tartan",
 					"contentName": "meta.typehint.comment.tartan",
-					"begin": "(?x)\n  (?:\n    \\#\\# \\s* (type:)\n    \\s*+ (?# we want `\\s*+` which is possessive quantifier since\n             we do not actually want to backtrack when matching\n             whitespace here)\n    (?! $ | \\#\\#)\n  )\n",
-					"end": "(?:$|(?=\\#\\#))",
+					"begin": "(?x)\n  (?:\n    (\\#\\#|\\#\\{) \\s* (type:)\n    \\s*+ (?# we want `\\s*+` which is possessive quantifier since\n             we do not actually want to backtrack when matching\n             whitespace here)\n    (?! $ | \\#\\# | \\}\\#)\n  )\n",
+					"end": "(?:$|(?=\\#\\#)|(?=\\}\\#))",
 					"beginCaptures": {
 						"0": { "name": "meta.typehint.comment.tartan" },
 						"1": { "name": "comment.typehint.directive.notation.tartan" }
@@ -1210,13 +1210,29 @@
 			"captures": { "1": { "name": "keyword.codetag.notation.tartan" } }
 		},
 		"comments-base": {
-			"name": "comment.line.number-sign.tartan",
-			"begin": "(\\#\\#)",
-			"beginCaptures": {
-				"1": { "name": "punctuation.definition.comment.tartan" }
-			},
-			"end": "($)",
-			"patterns": [{ "include": "#codetags" }]
+			"patterns": [
+				{
+					"name": "comment.line.number-sign.tartan",
+					"begin": "(\\#\\#)",
+					"beginCaptures": {
+						"1": { "name": "punctuation.definition.comment.tartan" }
+					},
+					"end": "($)",
+					"patterns": [{ "include": "#codetags" }]
+				},
+				{
+					"name": "comment.line.number-sign.tartan",
+					"begin": "(\\#\\{)",
+					"beginCaptures": {
+						"1": { "name": "punctuation.definition.comment.tartan" }
+					},
+					"end": "(\\}\\#)",
+					"endCaptures": {
+						"1": { "name": "punctuation.definition.comment.tartan" }
+					},
+					"patterns": [{ "include": "#codetags" }]
+				}
+			]
 		},
 		"comments-string-single-three": {
 			"name": "comment.line.number-sign.tartan",
