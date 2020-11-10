@@ -18,7 +18,9 @@ def main() {
 		data = f.read();
 	}
 
-	## this is a comment
+	#{
+		this is a comment
+	}#
 	
 	auto_process_libs = [
 		'math',
