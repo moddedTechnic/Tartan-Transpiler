@@ -48,8 +48,10 @@ def main() {
 	code = Unparser.unparse(tree);
 	code = Minifier(options=options).minify(code);
 
+	#{
 	log(dump(tree));
 	log(code.replace('\n', '\\n\n'));
+	}#
 
 	path_parts = fpath.split('.');
 	out_path = join('dist',

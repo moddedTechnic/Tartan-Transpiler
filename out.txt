@@ -34,12 +34,6 @@ Module(
         asname=None)],
       level=0),
     ImportFrom(
-      module='astunparse',
-      names=[alias(
-        name='dump',
-        asname=None)],
-      level=0),
-    ImportFrom(
       module='postprocessor',
       names=[alias(
         name='*',
@@ -47,13 +41,9 @@ Module(
       level=0),
     ImportFrom(
       module='utils',
-      names=[
-        alias(
-          name='log',
-          asname=None),
-        alias(
-          name='setup',
-          asname=None)],
+      names=[alias(
+        name='setup',
+        asname=None)],
       level=0),
     ImportFrom(
       module='utils.options',
@@ -577,39 +567,6 @@ Module(
               ctx=Load())],
             keywords=[]),
           type_comment=None),
-        Expr(value=Call(
-          func=Name(
-            id='log',
-            ctx=Load()),
-          args=[Call(
-            func=Name(
-              id='dump',
-              ctx=Load()),
-            args=[Name(
-              id='tree',
-              ctx=Load())],
-            keywords=[])],
-          keywords=[])),
-        Expr(value=Call(
-          func=Name(
-            id='log',
-            ctx=Load()),
-          args=[Call(
-            func=Attribute(
-              value=Name(
-                id='code',
-                ctx=Load()),
-              attr='replace',
-              ctx=Load()),
-            args=[
-              Constant(
-                value='\n',
-                kind=None),
-              Constant(
-                value='\\n\n',
-                kind=None)],
-            keywords=[])],
-          keywords=[])),
         Assign(
           targets=[Name(
             id='path_parts',
@@ -818,9 +775,8 @@ from ast import parse\n
 from os import makedirs as mkdir\n
 from os.path import dirname,exists,join\n
 from sys import argv\n
-from astunparse import dump\n
 from postprocessor import *\n
-from utils import log,setup\n
+from utils import setup\n
 from utils.options import Options\n
 from utils.unparser import Unparser\n
 from transpiler import Transpiler\n
@@ -836,8 +792,6 @@ def main():\n
 	tree=UnusedRemover(options=Options(debug=True,imports=[*['math','os.path'],'os'],eval_mod=['math','os.path'])).remove_unused(tree)\n
 	code=Unparser.unparse(tree)\n
 	code=Minifier(options=Options(debug=True,imports=[*['math','os.path'],'os'],eval_mod=['math','os.path'])).minify(code)\n
-	log(dump(tree))\n
-	log(code.replace('\n','\\n\n'))\n
 	path_parts=argv[1].split('.')\n
 	if (not exists(dirname(join('dist',(''.join(path_parts[:(-1)])+'.py'))))):\n
 		mkdir(dirname(join('dist',(''.join(path_parts[:(-1)])+'.py'))))\n
