@@ -8,6 +8,7 @@ verify_ssl = true
 [packages]
 astunparse = "*"
 six = "*"
+lark-parser = "*"
 
 [requires]
 python_version = "3.8"

@@ -1,0 +1,29 @@
+file_input
+  <_ast.AnnAssign object at 0x000001D614002D60>
+  <_ast.AugAssign object at 0x000001D613FE8F40>
+  <_ast.Assign object at 0x000001D613EEE460>
+  compound_stmt
+    for_stmt
+      exprlist
+        var	k
+        var	v
+      testlist
+        funccall
+          getattr
+            var	constants
+            items
+      suite
+        compound_stmt
+          if_stmt
+            <_ast.Compare object at 0x000001D614077E20>
+            suite
+              funccall
+                var	print
+                arguments
+                  funccall
+                    getattr
+                      var	self
+                      constant
+                    arguments
+                      var	v
+                      var	node

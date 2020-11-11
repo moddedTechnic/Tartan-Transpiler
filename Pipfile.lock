@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "148fffbe843af8a88ea3085db43615a484682682adf514b0ecb1e381b35932f7"
+            "sha256": "7bd55174b6e5b9c27655b74c0e615b0d92e00f245ed33bbdc7b5fb0ce8567a6e"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -23,6 +23,13 @@
             ],
             "index": "pypi",
             "version": "==1.6.3"
+        },
+        "lark-parser": {
+            "hashes": [
+                "sha256:42f367612a1bbc4cf9d8c8eb1b209d8a9b397d55af75620c9e6f53e502235996"
+            ],
+            "index": "pypi",
+            "version": "==0.10.1"
         },
         "six": {
             "hashes": [
