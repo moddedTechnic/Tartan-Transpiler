@@ -1,7 +1,7 @@
 from ast import (Add, AnnAssign, Assign, AugAssign, BitAnd, BitOr, BitXor,
-                 Call, Compare, Constant, Dict, Div, Eq, FloorDiv, Gt, GtE,
-                 IfExp, Load, LShift, Lt, LtE, MatMult, Mod, Mult, Name, NotEq,
-                 Pow, RShift, Store, Sub, dump, keyword)
+                 Call, Compare, Constant, Dict, Div, Eq, FloorDiv, For, Gt,
+                 GtE, IfExp, Load, LShift, Lt, LtE, MatMult, Mod, Mult, Name,
+                 NotEq, Pow, RShift, Store, Sub, dump, keyword)
 from typing import Any, List, Union
 
 from lark import Transformer
@@ -11,7 +11,7 @@ from lark.tree import Tree
 for elem in (Add, AnnAssign, Assign, AugAssign, BitAnd, BitOr, BitXor,
                  Call, Compare, Constant, Dict, Div, Eq, FloorDiv, Gt, GtE,
                  Load, LShift, Lt, LtE, MatMult, Mod, Mult, Name, NotEq, Pow,
-                 RShift, Store, Sub, keyword, IfExp):
+                 RShift, Store, Sub, keyword, IfExp, For):
 	setattr(elem, '__str__', lambda self: dump(self))
 	setattr(elem, '__repr__', lambda self: str(self))
 
@@ -230,3 +230,11 @@ class Treeify(Transformer):
 					i = i[0]
 			temp.append(i)
 		return temp
+
+	def for_stmt(self, f):
+		vars_, check, body = f
+		return For(
+			target=vars_,
+			iter=check,
+			body=body
+		)

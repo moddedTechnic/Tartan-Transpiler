@@ -3,7 +3,4 @@ file_input
   AugAssign(target=[Name(id='node')], op=Add(), value=Constant(value="'e'"))
   Call(func=[Name(id='print')], args=[], keywords=[keyword(arg='sep', value=Constant(value="', '")), keyword(arg='end', value=Constant(value="'\\n\\t'"))])
   Assign(targets=[[Name(id='constants')]], value=Dict(keys=[Constant(value="'true'"), Constant(value=True), Constant(value="'false'"), Constant(value=False), Constant(value="'null'"), Constant(value=None), Constant(value="'noop'")], values=[Constant(value=True), Constant(value="'false'"), Constant(value=False), Constant(value="'null'"), Constant(value=None), Constant(value="'noop'"), Constant(value=None)]))
-  for_stmt
-    [Name(id='k'), Name(id='v')]
-    Call(func=Tree('getattr', [[Name(id='constants')], Name(id='items')]), args=[], keywords=[])
-    [IfExp(test=Compare(left=Name(id='node', ctx=Load()), ops=[Eq()], comparators=[[Name(id='k')]]), body=[Call(func=[Name(id='print')], args=[], keywords=[]), Tree('break_stmt', [])], orelse=None), Call(func=[Name(id='print')], args=[], keywords=[])]
+  For(target=[Name(id='k'), Name(id='v')], iter=Call(func=Tree('getattr', [[Name(id='constants')], Name(id='items')]), args=[], keywords=[]), body=[IfExp(test=Compare(left=Name(id='node', ctx=Load()), ops=[Eq()], comparators=[[Name(id='k')]]), body=[Call(func=[Name(id='print')], args=[], keywords=[]), Tree('break_stmt', [])], orelse=None), Call(func=[Name(id='print')], args=[], keywords=[])])
