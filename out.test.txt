@@ -9,11 +9,16 @@ Module(body=[
   Tree('import_stmt', [Tree('import_from', [Tree('dotted_name', [Name(id='utils'), Name(id='options')]), Tree('import_as_names', [Tree('import_as_name', [Name(id='Options')])])])]),
   Tree('import_stmt', [Tree('import_from', [Tree('dotted_name', [Name(id='utils'), Name(id='unparser')]), Tree('import_as_names', [Tree('import_as_name', [Name(id='Unparser')])])])]),
   Tree('import_stmt', [Tree('import_from', [Tree('dotted_name', [Name(id='transpiler')]), Tree('import_as_names', [Tree('import_as_name', [Name(id='Transpiler')])])])]),
-  Tree('funcdef', [Name(id='main'), [Assign(
-  targets=[Name(
-    id='fpath',
-    ctx=Store())],
-  value=Tree('getitem', [[Name(id='argv')], Tree('subscriptlist', [Tree('subscript', [Tree('number', [Token('DEC_NUMBER', '1')])])])])), Tree('with_stmt', [Tree('with_item', [Call(
+  FunctionDef(
+    name='main',
+    args=[],
+    body=[
+      Assign(
+        targets=[Name(
+          id='fpath',
+          ctx=Store())],
+        value=Tree('getitem', [[Name(id='argv')], Tree('subscriptlist', [Tree('subscript', [Tree('number', [Token('DEC_NUMBER', '1')])])])])),
+      Tree('with_stmt', [Tree('with_item', [Call(
   func=Name(id='open'),
   args=[],
   keywords=[]), [Name(id='f')]]), [Assign(
@@ -29,43 +34,48 @@ Module(body=[
         id='read',
         ctx=Load())),
     args=[],
-    keywords=[]))]]), Assign(
-  targets=[Name(
-    id='path_parts',
-    ctx=Store())],
-  value=Call(
-    func=Attribute(
-      value=Name(
-        id='fpath',
-        ctx=Load()),
-      attr=Name(
-        id='split',
-        ctx=Load())),
-    args=[],
-    keywords=[])), Assign(
-  targets=[Name(
-    id='out_path',
-    ctx=Store())],
-  value=Call(
-    func=Name(id='join'),
-    args=[],
-    keywords=[])), Assign(
-  targets=[Name(
-    id='out_dir',
-    ctx=Store())],
-  value=Call(
-    func=Name(id='dirname'),
-    args=[],
-    keywords=[])), IfExp(
-  test=Tree('not', [Call(
+    keywords=[]))]]),
+      Assign(
+        targets=[Name(
+          id='path_parts',
+          ctx=Store())],
+        value=Call(
+          func=Attribute(
+            value=Name(
+              id='fpath',
+              ctx=Load()),
+            attr=Name(
+              id='split',
+              ctx=Load())),
+          args=[],
+          keywords=[])),
+      Assign(
+        targets=[Name(
+          id='out_path',
+          ctx=Store())],
+        value=Call(
+          func=Name(id='join'),
+          args=[],
+          keywords=[])),
+      Assign(
+        targets=[Name(
+          id='out_dir',
+          ctx=Store())],
+        value=Call(
+          func=Name(id='dirname'),
+          args=[],
+          keywords=[])),
+      IfExp(
+        test=Tree('not', [Call(
   func=Name(id='exists'),
   args=[],
   keywords=[])]),
-  body=[Call(
-    func=Name(id='mkdir'),
-    args=[],
-    keywords=[])],
-  orelse=None), Tree('with_stmt', [Tree('with_item', [Call(
+        body=[Call(
+          func=Name(id='mkdir'),
+          args=[],
+          keywords=[])],
+        orelse=None),
+      Tree('with_stmt', [Tree('with_item', [Call(
   func=Name(id='open'),
   args=[],
   keywords=[]), [Name(id='f')]]), [Call(
@@ -77,4 +87,5 @@ Module(body=[
       id='write',
       ctx=Load())),
   args=[],
-  keywords=[])]])]])])
+  keywords=[])]])],
+    decorator_list=[])])

@@ -1,7 +1,8 @@
 from ast import (Add, AnnAssign, Assign, Attribute, AugAssign, BitAnd, BitOr,
-                 BitXor, Call, Compare, Constant, Dict, Div, Eq, FloorDiv, For,
-                 Gt, GtE, IfExp, Load, LShift, Lt, LtE, MatMult, Mod, Module,
-                 Mult, Name, NotEq, Pow, RShift, Store, Sub, keyword)
+				 BitXor, Call, Compare, Constant, Dict, Div, Eq, FloorDiv, For,
+				 FunctionDef, Gt, GtE, IfExp, Load, LShift, Lt, LtE, MatMult,
+				 Mod, Module, Mult, Name, NotEq, Pow, RShift, Store, Sub,
+				 keyword)
 from typing import Any, List, Union
 
 from astunparse import dump
@@ -9,10 +10,11 @@ from lark import Transformer
 from lark.lexer import Token
 from lark.tree import Tree
 
-for elem in (Add, AnnAssign, Assign, AugAssign, BitAnd, BitOr, BitXor,
-                 Call, Compare, Constant, Dict, Div, Eq, FloorDiv, Gt, GtE,
-                 Load, LShift, Lt, LtE, MatMult, Mod, Mult, Name, NotEq, Pow,
-                 RShift, Store, Sub, keyword, IfExp, For, Module, Attribute):
+for elem in (Add, AnnAssign, Assign, Attribute, AugAssign, BitAnd, BitOr,
+			 BitXor, Call, Compare, Constant, Dict, Div, Eq, FloorDiv, For,
+			 FunctionDef, Gt, GtE, IfExp, Load, LShift, Lt, LtE, MatMult,
+			 Mod, Module, Mult, Name, NotEq, Pow, RShift, Store, Sub,
+			 keyword):
 	setattr(elem, '__str__', lambda self: dump(self))
 	setattr(elem, '__repr__', lambda self: str(self))
 
@@ -286,3 +288,9 @@ class Treeify(Transformer):
 			value=a,
 			attr=b
 		)
+
+	def funcdef(self, f):
+		name, body, *_ = f
+		if isinstance(name, Name):
+			name = name.id
+		return FunctionDef(name=name, args=[], body=body, decorator_list=[])
