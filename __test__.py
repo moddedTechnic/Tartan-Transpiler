@@ -1,24 +1,11 @@
 from preprocessor.parser import parse
+from os.path import join
 
 if __name__ == '__main__':
-	tree = parse('''
-node: str = 'tru'
-node += 'e'
-print(node, sep=', ', end='\\n\\t')
-constants = {
-	'true': True,
-	'false': False,
-	'null': None,
-	'noop': None,
-}
+	with open(join('test', '__main__.tart')) as f:
+		code = f.read()
 
-## this is a comment
-
-for k, v in constants.items():
-	if node == k:
-		print(self.constant(v, node))
-		break
-	print(node)''')
+	tree = parse(code)
 
 	with open('out.test.txt', 'w') as f:
 		f.write(str(tree))
