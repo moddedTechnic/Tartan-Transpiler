@@ -57,7 +57,9 @@ Module(body=[
             id='node',
             ctx=Load()),
           ops=[Eq()],
-          comparators=[[Name(id='k')]]),
+          comparators=[Name(
+            id='k',
+            ctx=Load())]),
         body=[
           Call(
             func=[Name(id='print')],

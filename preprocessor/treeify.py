@@ -138,6 +138,8 @@ class Treeify(Transformer):
 				if isinstance(i, Tree):
 					if i.data == 'var':
 						i = i.children[0]
+				if isinstance(i, Name):
+					i = self.LoadName(i.id)
 				temp.append(i)
 			y = temp
 		if isinstance(y, Tree):
@@ -145,15 +147,15 @@ class Treeify(Transformer):
 				y = y.children[0]
 
 		if isinstance(x, Name):
-			x = Name(id=x.id, ctx=Load())
+			x = self.LoadName(x.id)
 		if isinstance(y, Name):
-			y = Name(id=y.id, ctx=Load())
+			y = self.LoadName(y.id)
 
 		if func is not None:
 			return Compare(
 				left=x,
 				ops=[func()],
-				comparators=[y]
+				comparators=y
 			)
 
 		else:
