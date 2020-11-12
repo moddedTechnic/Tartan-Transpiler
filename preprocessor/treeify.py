@@ -347,7 +347,7 @@ class Treeify(Transformer):
 	def import_from(self, i):
 		if len(i) == 1:
 			module = i[0]
-			names = None
+			names = '*'
 		else:
 			module, names = i
 
@@ -375,6 +375,8 @@ class Treeify(Transformer):
 						name = alias(name=base, asname=asname)
 					temp.append(name)
 				names = temp.copy()
+			else:
+				names = [names]
 
 		return ImportFrom(module=module, names=names, level=0)
 
