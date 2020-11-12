@@ -1,16 +1,11 @@
 // Python 3 grammar for Lark
 
 // NOTE: Work in progress!!! (XXX TODO)
-// This grammar should parse all python 3.x code successfully,
-// but the resulting parse-tree is still not well-organized.
-
-// Adapted from: https://docs.python.org/3/reference/grammar.html
-// Adapted by: Erez Shinan
+// Adapted from: https://github.com/lark-parser/lark/blob/master/examples/advanced/python3.lark
 
 // Start symbols for the grammar:
 //       file_input is a module or sequence of commands read from an input file;
 //       eval_input is the input for the eval() functions.
-// NB: compound_stmt in single_input is followed by extra NEWLINE!
 file_input: (_NEWLINE | stmt)*
 eval_input: testlist _NEWLINE*
 
@@ -19,6 +14,7 @@ decorators: decorator+
 decorated: decorators (classdef | funcdef | async_funcdef)
 
 async_funcdef: ASYNC funcdef
+// funcdef: "def" NAME "(" parameters? ")" ["->" test] "{" suite "}"
 funcdef: "def" NAME "(" parameters? ")" ["->" test] ":" suite
 
 parameters: paramvalue ("," paramvalue)* ["," [ starparams | kwparams]]
@@ -73,6 +69,7 @@ if_stmt: "if" test ":" suite ("elif" test ":" suite)* ["else" ":" suite]
 while_stmt: "while" test ":" suite ["else" ":" suite]
 for_stmt: "for" exprlist "in" testlist ":" suite ["else" ":" suite]
 try_stmt: ("try" ":" suite ((except_clause ":" suite)+ ["else" ":" suite] ["finally" ":" suite] | "finally" ":" suite))
+// with_stmt: "with" with_item ("," with_item)*  "{" suite "}"
 with_stmt: "with" with_item ("," with_item)*  ":" suite
 with_item: test ["as" expr]
 // NB compile.c makes sure that the default except clause is last
@@ -109,7 +106,7 @@ star_expr: "*" expr
 ?await_expr: AWAIT? atom_expr
 AWAIT: "await"
 
-?atom_expr: atom_expr "(" [arguments] ")"      -> funccall
+?atom_expr: atom_expr "(" [arguments] ")"    -> funccall
           | atom_expr "[" subscriptlist "]"  -> getitem
           | atom_expr "." NAME               -> getattr
           | atom
@@ -136,6 +133,7 @@ exprlist: (expr|star_expr) ("," (expr|star_expr))* [","]
 testlist: test ("," test)* [","]
 dictorsetmaker: ( ((test ":" test | "**" expr) (comp_for | ("," (test ":" test | "**" expr))* [","])) | ((test | star_expr) (comp_for | ("," (test | star_expr))* [","])) )
 
+// classdef: "class" NAME ["(" [arguments] ")"] "{" suite "}"
 classdef: "class" NAME ["(" [arguments] ")"] ":" suite
 
 arguments: argvalue ("," argvalue)*  ("," [ starargs | kwargs])?
@@ -179,11 +177,14 @@ string: STRING | LONG_STRING
 // Other terminals
 
 COMMENT: /##[^\n]*/
+MULTILINE_COMMENT: "#{" /(.|\n)*/ "}#"
+
 DEC_NUMBER: /(0d)?\d+/i
 ASYNC: "async"
-_NEWLINE: ( /\r?\n[\t ]*/ | COMMENT )+
+_NEWLINE: ( /\r?\n[\t ]*/ | COMMENT | MULTILINE_COMMENT )+
 
 %ignore /[\t \f]+/  // WS
 %ignore /\\[\t \f]*\r?\n/   // LINE_CONT
 %ignore COMMENT
+%ignore MULTILINE_COMMENT
 %declare _INDENT _DEDENT
