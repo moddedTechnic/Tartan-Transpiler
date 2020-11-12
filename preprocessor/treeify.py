@@ -2,8 +2,8 @@ from ast import (Add, AnnAssign, Assign, Attribute, AugAssign, BinOp, BitAnd,
                  BitOr, BitXor, Call, Compare, Constant, Dict, Div, Eq,
                  FloorDiv, For, FunctionDef, Gt, GtE, IfExp, ImportFrom, Load,
                  LShift, Lt, LtE, MatMult, Mod, Module, Mult, Name, Not, NotEq,
-                 Pow, RShift, Store, Sub, UnaryOp, With, alias, keyword,
-                 withitem)
+                 Pow, RShift, Store, Sub, UAdd, UnaryOp, USub, With, alias,
+                 keyword, withitem)
 from typing import Any, List, Union
 
 from astunparse import dump
@@ -15,7 +15,7 @@ for elem in (Add, AnnAssign, Assign, Attribute, AugAssign, BitAnd, BitOr,
 			 BitXor, Call, Compare, Constant, Dict, Div, Eq, FloorDiv, For,
 			 FunctionDef, Gt, GtE, IfExp, Load, LShift, Lt, LtE, MatMult,
 			 Mod, Module, Mult, Name, NotEq, Pow, RShift, Store, Sub,
-			 keyword, With, withitem, UnaryOp, Not, BinOp, alias, ImportFrom):
+			 keyword, With, withitem, UnaryOp, Not, BinOp, alias, ImportFrom, UAdd, USub):
 	setattr(elem, '__str__', lambda self: dump(self))
 	setattr(elem, '__repr__', lambda self: str(self))
 
@@ -383,3 +383,17 @@ class Treeify(Transformer):
 			if isinstance(i[0], ImportFrom):
 				return i[0]
 		return Tree(data='import_stmt', children=i)
+
+	def factor(self, f):
+		if len(f) == 2:
+			op, operand = f
+			op = {
+				'+': UAdd(),
+				'-': USub(),
+			}.get(op.value, None)
+			
+			if op is not None:
+				return UnaryOp(op=op, operand=operand)
+
+		print(f)
+		return Tree(data='factor', children=f)

@@ -119,7 +119,9 @@ Module(body=[
                   attr=Name(
                     id='join',
                     ctx=Load())),
-                args=[Tree('getitem', [[Name(id='path_parts')], Tree('subscriptlist', [Tree('subscript', [Tree('factor', [Token('MINUS', '-'), Constant(value=1)])])])])],
+                args=[Tree('getitem', [[Name(id='path_parts')], Tree('subscriptlist', [Tree('subscript', [UnaryOp(
+  op=USub(),
+  operand=Constant(value=1))])])])],
                 keywords=[]),
               op=Add(),
               right=Constant(value='.py'))],
