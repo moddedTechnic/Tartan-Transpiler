@@ -66,7 +66,9 @@ Module(body=[
         targets=[Name(
           id='fpath',
           ctx=Store())],
-        value=Tree('getitem', [[Name(id='argv')], Tree('subscriptlist', [Tree('subscript', [Constant(value=1)])])])),
+        value=Subscript(
+          value=Name(id='argv'),
+          slice=Index(value=Constant(value=1)))),
       With(
         items=[withitem(
           context_expr=Call(
@@ -119,9 +121,11 @@ Module(body=[
                   attr=Name(
                     id='join',
                     ctx=Load())),
-                args=[Tree('getitem', [[Name(id='path_parts')], Tree('subscriptlist', [Tree('subscript', [UnaryOp(
-  op=USub(),
-  operand=Constant(value=1))])])])],
+                args=[Subscript(
+                  value=Name(id='path_parts'),
+                  slice=Index(value=UnaryOp(
+                    op=USub(),
+                    operand=Constant(value=1))))],
                 keywords=[]),
               op=Add(),
               right=Constant(value='.py'))],

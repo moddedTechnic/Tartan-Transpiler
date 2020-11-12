@@ -1,9 +1,9 @@
 from ast import (Add, AnnAssign, Assign, Attribute, AugAssign, BinOp, BitAnd,
                  BitOr, BitXor, Call, Compare, Constant, Dict, Div, Eq,
-                 FloorDiv, For, FunctionDef, Gt, GtE, IfExp, ImportFrom, Load,
-                 LShift, Lt, LtE, MatMult, Mod, Module, Mult, Name, Not, NotEq,
-                 Pow, RShift, Store, Sub, UAdd, UnaryOp, USub, With, alias,
-                 keyword, withitem)
+                 FloorDiv, For, FunctionDef, Gt, GtE, IfExp, ImportFrom, Index,
+                 Load, LShift, Lt, LtE, MatMult, Mod, Module, Mult, Name, Not,
+                 NotEq, Pow, RShift, Slice, Store, Sub, Subscript, UAdd,
+                 UnaryOp, USub, With, alias, keyword, withitem)
 from typing import Any, List, Union
 
 from astunparse import dump
@@ -15,7 +15,7 @@ for elem in (Add, AnnAssign, Assign, Attribute, AugAssign, BitAnd, BitOr,
 			 BitXor, Call, Compare, Constant, Dict, Div, Eq, FloorDiv, For,
 			 FunctionDef, Gt, GtE, IfExp, Load, LShift, Lt, LtE, MatMult,
 			 Mod, Module, Mult, Name, NotEq, Pow, RShift, Store, Sub,
-			 keyword, With, withitem, UnaryOp, Not, BinOp, alias, ImportFrom, UAdd, USub):
+			 keyword, With, withitem, UnaryOp, Not, BinOp, alias, ImportFrom, UAdd, USub, Index, Slice, Subscript):
 	setattr(elem, '__str__', lambda self: dump(self))
 	setattr(elem, '__repr__', lambda self: str(self))
 
@@ -226,8 +226,8 @@ class Treeify(Transformer):
 		if isinstance(func, list):
 			func = func[0]
 
-		if isinstance(func, Attribute) and isinstance(args, Tree):
-			print(args.children)
+		# if isinstance(func, Attribute) and isinstance(args, Tree):
+		# 	print(args.children)
 
 		return Call(
 			func=func,
@@ -395,5 +395,36 @@ class Treeify(Transformer):
 			if op is not None:
 				return UnaryOp(op=op, operand=operand)
 
-		print(f)
+		# print(f)
 		return Tree(data='factor', children=f)
+
+	def subscriptlist(self, s):
+		s = s[0]
+		subscript = None
+		if isinstance(s, Tree):
+			subscript = s.children
+
+			if len(subscript) == 1:
+				subscript = Index(value=subscript[0])
+			elif len(subscript) == 2:
+				subscript = Slice(lower=subscript[0], upper=subscript[1], step=None)
+			elif len(subscript) == 3:
+				subscript = Slice(lower=subscript[0], upper=subscript[1], step=subscript[2])
+			
+		return Tree(data='subscriptlist', children=[subscript])
+
+	def getitem(self, g):
+		name, accessor = g
+
+		if isinstance(name, list):
+			name = name[0]
+
+		if isinstance(accessor, Tree):
+			if accessor.data == 'subscriptlist':
+				accessor = accessor.children[0]
+				return Subscript(
+					value=name,
+					slice=accessor
+				)
+
+		return Tree(data='getitem', children=g)
