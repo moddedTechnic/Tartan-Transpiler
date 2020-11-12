@@ -6,4 +6,4 @@ file_input
   for_stmt
     [Name(id='k'), Name(id='v')]
     Call(func=Tree('getattr', [[Name(id='constants')], Name(id='items')]), args=[], keywords=[])
-    [IfExp(test=Compare(left=Name(id='node', ctx=Load()), ops=[Eq()], comparators=[[Name(id='k')]]), body=[Call(func=[Name(id='print')], args=[], keywords=[]), Tree('break_stmt', [])], orelse=None)]
+    [IfExp(test=Compare(left=Name(id='node', ctx=Load()), ops=[Eq()], comparators=[[Name(id='k')]]), body=[Call(func=[Name(id='print')], args=[], keywords=[]), Tree('break_stmt', [])], orelse=None), Call(func=[Name(id='print')], args=[], keywords=[])]

@@ -17,7 +17,8 @@ constants = {
 for k, v in constants.items():
 	if node == k:
 		print(self.constant(v, node))
-		break''')
+		break
+	print(node)''')
 
 	with open('out.test.txt', 'w') as f:
 		f.write(tree.pretty())
