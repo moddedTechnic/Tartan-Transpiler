@@ -1,7 +1,7 @@
 from ast import (Add, AnnAssign, Assign, AugAssign, BitAnd, BitOr, BitXor,
                  Call, Compare, Constant, Dict, Div, Eq, FloorDiv, Gt, GtE,
-                 Load, LShift, Lt, LtE, MatMult, Mod, Mult, Name, NotEq, Pow,
-                 RShift, Store, Sub, keyword, dump)
+                 IfExp, Load, LShift, Lt, LtE, MatMult, Mod, Mult, Name, NotEq,
+                 Pow, RShift, Store, Sub, dump, keyword)
 from typing import Any, List, Union
 
 from lark import Transformer
@@ -11,7 +11,7 @@ from lark.tree import Tree
 for elem in (Add, AnnAssign, Assign, AugAssign, BitAnd, BitOr, BitXor,
                  Call, Compare, Constant, Dict, Div, Eq, FloorDiv, Gt, GtE,
                  Load, LShift, Lt, LtE, MatMult, Mod, Mult, Name, NotEq, Pow,
-                 RShift, Store, Sub, keyword):
+                 RShift, Store, Sub, keyword, IfExp):
 	setattr(elem, '__str__', lambda self: dump(self))
 	setattr(elem, '__repr__', lambda self: str(self))
 
@@ -195,3 +195,14 @@ class Treeify(Transformer):
 
 	def compound_stmt(self, c):
 		return c[0]
+
+	def if_stmt(self, i):
+		check, block = i
+		return IfExp(
+			test=check,
+			body=block,
+			orelse=None
+		)
+
+	def suite(self, s):
+		return s[0]

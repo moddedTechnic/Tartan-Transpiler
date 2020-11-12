@@ -8,7 +8,4 @@ file_input
       [Name(id='k')]
       [Name(id='v')]
     testlist	Call(func=Tree('getattr', [[Name(id='constants')], Name(id='items')]), args=[], keywords=[])
-    suite
-      if_stmt
-        Compare(left=[Name(id='node')], ops=[Eq()], comparators=[[Name(id='k')]])
-        suite	Call(func=[Name(id='print')], args=[], keywords=[])
+    IfExp(test=Compare(left=[Name(id='node')], ops=[Eq()], comparators=[[Name(id='k')]]), body=Call(func=[Name(id='print')], args=[], keywords=[]), orelse=None)
