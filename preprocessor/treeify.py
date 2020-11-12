@@ -1,8 +1,8 @@
-from ast import (Add, AnnAssign, Assign, Attribute, AugAssign, BitAnd, BitOr,
-                 BitXor, Call, Compare, Constant, Dict, Div, Eq, FloorDiv, For,
-                 FunctionDef, Gt, GtE, IfExp, Load, LShift, Lt, LtE, MatMult,
-                 Mod, Module, Mult, Name, NotEq, Pow, RShift, Store, Sub, With,
-                 keyword, withitem, UnaryOp, Not)
+from ast import (Add, AnnAssign, Assign, Attribute, AugAssign, BinOp, BitAnd,
+                 BitOr, BitXor, Call, Compare, Constant, Dict, Div, Eq,
+                 FloorDiv, For, FunctionDef, Gt, GtE, IfExp, Load, LShift, Lt,
+                 LtE, MatMult, Mod, Module, Mult, Name, Not, NotEq, Pow,
+                 RShift, Store, Sub, UnaryOp, With, keyword, withitem)
 from typing import Any, List, Union
 
 from astunparse import dump
@@ -14,7 +14,7 @@ for elem in (Add, AnnAssign, Assign, Attribute, AugAssign, BitAnd, BitOr,
 			 BitXor, Call, Compare, Constant, Dict, Div, Eq, FloorDiv, For,
 			 FunctionDef, Gt, GtE, IfExp, Load, LShift, Lt, LtE, MatMult,
 			 Mod, Module, Mult, Name, NotEq, Pow, RShift, Store, Sub,
-			 keyword, With, withitem, UnaryOp, Not):
+			 keyword, With, withitem, UnaryOp, Not, BinOp):
 	setattr(elem, '__str__', lambda self: dump(self))
 	setattr(elem, '__repr__', lambda self: str(self))
 
@@ -316,3 +316,23 @@ class Treeify(Transformer):
 
 	def not_expr(self, n):
 		return UnaryOp(Not(), n[0])
+
+	def arith_expr(self, a):
+		a, op, b = a
+		
+		op = {
+			'+': Add(),
+			'-': Sub(),
+			'*': Mult(),
+			'@': MatMult(),
+			'/': Div(),
+			'//': FloorDiv(),
+			'%': Mod(),
+			'&': BitAnd(),
+			'|': BitOr(),
+			'^': BitXor(),
+			'<<': LShift(),
+			'>>': RShift(),
+		}.get(op, None)
+
+		return BinOp(left=a, op=op, right=b)
