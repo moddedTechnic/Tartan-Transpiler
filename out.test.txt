@@ -1,14 +1,63 @@
 Module(body=[
-  Tree('import_stmt', [Tree('import_from', [Tree('dotted_name', [Name(id='ast')]), Tree('import_as_names', [Tree('import_as_name', [Name(id='parse')])])])]),
-  Tree('import_stmt', [Tree('import_from', [Tree('dotted_name', [Name(id='os')]), Tree('import_as_names', [Tree('import_as_name', [Name(id='makedirs'), Name(id='mkdir')])])])]),
-  Tree('import_stmt', [Tree('import_from', [Tree('dotted_name', [Name(id='os'), Name(id='path')]), Tree('import_as_names', [Tree('import_as_name', [Name(id='dirname')]), Tree('import_as_name', [Name(id='exists')]), Tree('import_as_name', [Name(id='join')])])])]),
-  Tree('import_stmt', [Tree('import_from', [Tree('dotted_name', [Name(id='sys')]), Tree('import_as_names', [Tree('import_as_name', [Name(id='argv')])])])]),
-  Tree('import_stmt', [Tree('import_from', [Tree('dotted_name', [Name(id='astunparse')]), Tree('import_as_names', [Tree('import_as_name', [Name(id='dump')])])])]),
-  Tree('import_stmt', [Tree('import_from', [Tree('dotted_name', [Name(id='postprocessor')])])]),
-  Tree('import_stmt', [Tree('import_from', [Tree('dotted_name', [Name(id='utils')]), Tree('import_as_names', [Tree('import_as_name', [Name(id='log')]), Tree('import_as_name', [Name(id='setup')])])])]),
-  Tree('import_stmt', [Tree('import_from', [Tree('dotted_name', [Name(id='utils'), Name(id='options')]), Tree('import_as_names', [Tree('import_as_name', [Name(id='Options')])])])]),
-  Tree('import_stmt', [Tree('import_from', [Tree('dotted_name', [Name(id='utils'), Name(id='unparser')]), Tree('import_as_names', [Tree('import_as_name', [Name(id='Unparser')])])])]),
-  Tree('import_stmt', [Tree('import_from', [Tree('dotted_name', [Name(id='transpiler')]), Tree('import_as_names', [Tree('import_as_name', [Name(id='Transpiler')])])])]),
+  ImportFrom(
+    module='ast',
+    names=[alias(
+      name='parse',
+      asname=None)]),
+  ImportFrom(
+    module='os',
+    names=[alias(
+      name='makedirs',
+      asname='mkdir')]),
+  ImportFrom(
+    module='os.path',
+    names=[
+      alias(
+        name='dirname',
+        asname=None),
+      alias(
+        name='exists',
+        asname=None),
+      alias(
+        name='join',
+        asname=None)]),
+  ImportFrom(
+    module='sys',
+    names=[alias(
+      name='argv',
+      asname=None)]),
+  ImportFrom(
+    module='astunparse',
+    names=[alias(
+      name='dump',
+      asname=None)]),
+  ImportFrom(
+    module='postprocessor',
+    names=None),
+  ImportFrom(
+    module='utils',
+    names=[
+      alias(
+        name='log',
+        asname=None),
+      alias(
+        name='setup',
+        asname=None)]),
+  ImportFrom(
+    module='utils.options',
+    names=[alias(
+      name='Options',
+      asname=None)]),
+  ImportFrom(
+    module='utils.unparser',
+    names=[alias(
+      name='Unparser',
+      asname=None)]),
+  ImportFrom(
+    module='transpiler',
+    names=[alias(
+      name='Transpiler',
+      asname=None)]),
   FunctionDef(
     name='main',
     args=[],

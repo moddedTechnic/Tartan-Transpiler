@@ -1,8 +1,9 @@
 from ast import (Add, AnnAssign, Assign, Attribute, AugAssign, BinOp, BitAnd,
                  BitOr, BitXor, Call, Compare, Constant, Dict, Div, Eq,
-                 FloorDiv, For, FunctionDef, Gt, GtE, IfExp, Load, LShift, Lt,
-                 LtE, MatMult, Mod, Module, Mult, Name, Not, NotEq, Pow,
-                 RShift, Store, Sub, UnaryOp, With, keyword, withitem)
+                 FloorDiv, For, FunctionDef, Gt, GtE, IfExp, ImportFrom, Load,
+                 LShift, Lt, LtE, MatMult, Mod, Module, Mult, Name, Not, NotEq,
+                 Pow, RShift, Store, Sub, UnaryOp, With, alias, keyword,
+                 withitem)
 from typing import Any, List, Union
 
 from astunparse import dump
@@ -14,7 +15,7 @@ for elem in (Add, AnnAssign, Assign, Attribute, AugAssign, BitAnd, BitOr,
 			 BitXor, Call, Compare, Constant, Dict, Div, Eq, FloorDiv, For,
 			 FunctionDef, Gt, GtE, IfExp, Load, LShift, Lt, LtE, MatMult,
 			 Mod, Module, Mult, Name, NotEq, Pow, RShift, Store, Sub,
-			 keyword, With, withitem, UnaryOp, Not, BinOp):
+			 keyword, With, withitem, UnaryOp, Not, BinOp, alias, ImportFrom):
 	setattr(elem, '__str__', lambda self: dump(self))
 	setattr(elem, '__repr__', lambda self: str(self))
 
@@ -338,3 +339,43 @@ class Treeify(Transformer):
 		}.get(op, None)
 
 		return BinOp(left=a, op=op, right=b)
+
+	def import_from(self, i):
+		if len(i) == 1:
+			module = i[0]
+			names = None
+		else:
+			module, names = i
+
+		if isinstance(module, Tree):
+			module = module.children
+			module = '.'.join([ m.id for m in module ])
+
+		if names is not None:
+			if isinstance(names, Tree):
+				names = names.children
+			if isinstance(names, list):
+				temp = []
+				for name in names:
+					if isinstance(name, Tree):
+						base = name.children[0]
+						if isinstance(base, Name):
+							base = base.id
+
+						if len(name.children) > 1:
+							asname = name.children[1]
+							if isinstance(asname, Name):
+								asname = asname.id
+						else:
+							asname = None
+						name = alias(name=base, asname=asname)
+					temp.append(name)
+				names = temp.copy()
+
+		return ImportFrom(module=module, names=names)
+
+	def import_stmt(self, i):
+		if len(i) == 1:
+			if isinstance(i[0], ImportFrom):
+				return i[0]
+		return Tree(data='import_stmt', children=i)
