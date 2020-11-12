@@ -37,7 +37,7 @@ class Treeify(Transformer):
 
 	def string(self, s: List[Token]):
 		s = s[0]
-		return self.Constant(s.value, s)
+		return self.Constant(s.value[1:-1], s)
 
 	def dict(self, d: List[Tree]):
 		d = d[0]

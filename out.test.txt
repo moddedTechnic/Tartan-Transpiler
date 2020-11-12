@@ -1,40 +1,40 @@
 Module(body=[
   AnnAssign(
     annotation=[Name(id='str')],
-    value=Constant(value="'tru'"),
+    value=Constant(value='tru'),
     simple=1),
   AugAssign(
     target=[Name(id='node')],
     op=Add(),
-    value=Constant(value="'e'")),
+    value=Constant(value='e')),
   Call(
     func=[Name(id='print')],
     args=[],
     keywords=[
       keyword(
         arg='sep',
-        value=Constant(value="', '")),
+        value=Constant(value=', ')),
       keyword(
         arg='end',
-        value=Constant(value="'\\n\\t'"))]),
+        value=Constant(value='\\n\\t'))]),
   Assign(
     targets=[Name(id='constants')],
     value=Dict(
       keys=[
-        Constant(value="'true'"),
+        Constant(value='true'),
         Constant(value=True),
-        Constant(value="'false'"),
+        Constant(value='false'),
         Constant(value=False),
-        Constant(value="'null'"),
+        Constant(value='null'),
         Constant(value=None),
-        Constant(value="'noop'")],
+        Constant(value='noop')],
       values=[
         Constant(value=True),
-        Constant(value="'false'"),
+        Constant(value='false'),
         Constant(value=False),
-        Constant(value="'null'"),
+        Constant(value='null'),
         Constant(value=None),
-        Constant(value="'noop'"),
+        Constant(value='noop'),
         Constant(value=None)])),
   For(
     target=[
