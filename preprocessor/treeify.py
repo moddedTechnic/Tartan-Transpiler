@@ -272,10 +272,17 @@ class Treeify(Transformer):
 		return Module(body=f)
 
 	def getattr(self, g):
-		# get a from b
+		# get b from a
 		a, b = g
-		a = a[0]
+		if isinstance(a, list):
+			a = a[0]
+		
+		if isinstance(a, Name):
+			a = self.LoadName(a.id)
+		if isinstance(b, Name):
+			b = self.LoadName(b.id)
+		
 		return Attribute(
-			value=self.LoadName(b.id),
-			attr=self.LoadName(a.id)
+			value=a,
+			attr=b
 		)
