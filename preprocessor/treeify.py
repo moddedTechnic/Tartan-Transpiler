@@ -52,7 +52,7 @@ class Treeify(Transformer):
 		if d.data == self.DICT_OR_SET_MAKER:
 			kv_pairs = []
 			data = d.children
-			for i in range(len(data) - 1):
+			for i in range(0, len(data) - 1, 2):
 				kv_pairs.append((data[i], data[i+1]))
 			keys = [ k for k, _ in kv_pairs ]
 			values = [ v for _, v in kv_pairs ]
