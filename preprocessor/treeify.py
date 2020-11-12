@@ -376,7 +376,7 @@ class Treeify(Transformer):
 					temp.append(name)
 				names = temp.copy()
 
-		return ImportFrom(module=module, names=names)
+		return ImportFrom(module=module, names=names, level=0)
 
 	def import_stmt(self, i):
 		if len(i) == 1:
