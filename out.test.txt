@@ -18,7 +18,7 @@ Module(body=[
         arg='end',
         value=Constant(value="'\\n\\t'"))]),
   Assign(
-    targets=[[Name(id='constants')]],
+    targets=[Name(id='constants')],
     value=Dict(
       keys=[
         Constant(value="'true'"),

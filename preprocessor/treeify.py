@@ -95,14 +95,14 @@ class Treeify(Transformer):
 
 		if annotation is not None:
 			return AnnAssign(
-				targets=[name],
+				targets=name,
 				value=value,
 				simple=1,
 				annotation=annotation
 			)
 
 		return Assign(
-			targets=[name],
+			targets=name,
 			value=value
 		)
 
