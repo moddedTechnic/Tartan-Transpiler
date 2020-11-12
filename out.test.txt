@@ -8,7 +8,7 @@ Module(body=[
     op=Add(),
     value=Constant(value='e')),
   Call(
-    func=[Name(id='print')],
+    func=Name(id='print'),
     args=[],
     keywords=[
       keyword(
@@ -62,12 +62,12 @@ Module(body=[
             ctx=Load())]),
         body=[
           Call(
-            func=[Name(id='print')],
+            func=Name(id='print'),
             args=[],
             keywords=[]),
           Tree('break_stmt', [])],
         orelse=None),
       Call(
-        func=[Name(id='print')],
+        func=Name(id='print'),
         args=[],
         keywords=[])])])

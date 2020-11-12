@@ -198,6 +198,9 @@ class Treeify(Transformer):
 			args_ = []
 			kwargs = []
 
+		if isinstance(func, list):
+			func = func[0]
+
 		return Call(
 			func=func,
 			args=args_,
