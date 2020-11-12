@@ -1,76 +1,80 @@
 Module(body=[
-  AnnAssign(
-    target=Name(
-      id='node',
-      ctx=Store()),
-    annotation=Name(
-      id='str',
-      ctx=Load()),
-    value=Constant(value='tru'),
-    simple=1),
-  AugAssign(
-    target=Name(
-      id='node',
-      ctx=Store()),
-    op=Add(),
-    value=Constant(value='e')),
-  Call(
-    func=Name(id='print'),
+  Tree('import_stmt', [Tree('import_from', [Tree('dotted_name', [Name(id='ast')]), Tree('import_as_names', [Tree('import_as_name', [Name(id='parse')])])])]),
+  Tree('import_stmt', [Tree('import_from', [Tree('dotted_name', [Name(id='os')]), Tree('import_as_names', [Tree('import_as_name', [Name(id='makedirs'), Name(id='mkdir')])])])]),
+  Tree('import_stmt', [Tree('import_from', [Tree('dotted_name', [Name(id='os'), Name(id='path')]), Tree('import_as_names', [Tree('import_as_name', [Name(id='dirname')]), Tree('import_as_name', [Name(id='exists')]), Tree('import_as_name', [Name(id='join')])])])]),
+  Tree('import_stmt', [Tree('import_from', [Tree('dotted_name', [Name(id='sys')]), Tree('import_as_names', [Tree('import_as_name', [Name(id='argv')])])])]),
+  Tree('import_stmt', [Tree('import_from', [Tree('dotted_name', [Name(id='astunparse')]), Tree('import_as_names', [Tree('import_as_name', [Name(id='dump')])])])]),
+  Tree('import_stmt', [Tree('import_from', [Tree('dotted_name', [Name(id='postprocessor')])])]),
+  Tree('import_stmt', [Tree('import_from', [Tree('dotted_name', [Name(id='utils')]), Tree('import_as_names', [Tree('import_as_name', [Name(id='log')]), Tree('import_as_name', [Name(id='setup')])])])]),
+  Tree('import_stmt', [Tree('import_from', [Tree('dotted_name', [Name(id='utils'), Name(id='options')]), Tree('import_as_names', [Tree('import_as_name', [Name(id='Options')])])])]),
+  Tree('import_stmt', [Tree('import_from', [Tree('dotted_name', [Name(id='utils'), Name(id='unparser')]), Tree('import_as_names', [Tree('import_as_name', [Name(id='Unparser')])])])]),
+  Tree('import_stmt', [Tree('import_from', [Tree('dotted_name', [Name(id='transpiler')]), Tree('import_as_names', [Tree('import_as_name', [Name(id='Transpiler')])])])]),
+  Tree('funcdef', [Name(id='main'), [Assign(
+  targets=[Name(
+    id='fpath',
+    ctx=Store())],
+  value=Tree('getitem', [[Name(id='argv')], Tree('subscriptlist', [Tree('subscript', [Tree('number', [Token('DEC_NUMBER', '1')])])])])), Tree('with_stmt', [Tree('with_item', [Call(
+  func=Name(id='open'),
+  args=[],
+  keywords=[]), [Name(id='f')]]), [Assign(
+  targets=[Name(
+    id='data',
+    ctx=Store())],
+  value=Call(
+    func=Attribute(
+      value=Name(
+        id='f',
+        ctx=Load()),
+      attr=Name(
+        id='read',
+        ctx=Load())),
     args=[],
-    keywords=[
-      keyword(
-        arg='sep',
-        value=Constant(value=', ')),
-      keyword(
-        arg='end',
-        value=Constant(value='\\n\\t'))]),
-  Assign(
-    targets=[Name(
-      id='constants',
-      ctx=Store())],
-    value=Dict(
-      keys=[
-        Constant(value='true'),
-        Constant(value='false'),
-        Constant(value='null'),
-        Constant(value='noop')],
-      values=[
-        Constant(value=True),
-        Constant(value=False),
-        Constant(value=None),
-        Constant(value=None)])),
-  For(
-    target=[
-      Name(id='k'),
-      Name(id='v')],
-    iter=Call(
-      func=Attribute(
-        value=Name(
-          id='items',
-          ctx=Load()),
-        attr=Name(
-          id='constants',
-          ctx=Load())),
-      args=[],
-      keywords=[]),
-    body=[
-      IfExp(
-        test=Compare(
-          left=Name(
-            id='node',
-            ctx=Load()),
-          ops=[Eq()],
-          comparators=[Name(
-            id='k',
-            ctx=Load())]),
-        body=[
-          Call(
-            func=Name(id='print'),
-            args=[],
-            keywords=[]),
-          Tree('break_stmt', [])],
-        orelse=None),
-      Call(
-        func=Name(id='print'),
-        args=[],
-        keywords=[])])])
+    keywords=[]))]]), Assign(
+  targets=[Name(
+    id='path_parts',
+    ctx=Store())],
+  value=Call(
+    func=Attribute(
+      value=Name(
+        id='fpath',
+        ctx=Load()),
+      attr=Name(
+        id='split',
+        ctx=Load())),
+    args=[],
+    keywords=[])), Assign(
+  targets=[Name(
+    id='out_path',
+    ctx=Store())],
+  value=Call(
+    func=Name(id='join'),
+    args=[],
+    keywords=[])), Assign(
+  targets=[Name(
+    id='out_dir',
+    ctx=Store())],
+  value=Call(
+    func=Name(id='dirname'),
+    args=[],
+    keywords=[])), IfExp(
+  test=Tree('not', [Call(
+  func=Name(id='exists'),
+  args=[],
+  keywords=[])]),
+  body=[Call(
+    func=Name(id='mkdir'),
+    args=[],
+    keywords=[])],
+  orelse=None), Tree('with_stmt', [Tree('with_item', [Call(
+  func=Name(id='open'),
+  args=[],
+  keywords=[]), [Name(id='f')]]), [Call(
+  func=Attribute(
+    value=Name(
+      id='f',
+      ctx=Load()),
+    attr=Name(
+      id='write',
+      ctx=Load())),
+  args=[],
+  keywords=[])]])]])])
