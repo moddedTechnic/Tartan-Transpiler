@@ -1,10 +1,17 @@
 Module(body=[
   AnnAssign(
-    annotation=[Name(id='str')],
+    target=Name(
+      id='node',
+      ctx=Store()),
+    annotation=Name(
+      id='str',
+      ctx=Load()),
     value=Constant(value='tru'),
     simple=1),
   AugAssign(
-    target=[Name(id='node')],
+    target=Name(
+      id='node',
+      ctx=Store()),
     op=Add(),
     value=Constant(value='e')),
   Call(
@@ -18,7 +25,9 @@ Module(body=[
         arg='end',
         value=Constant(value='\\n\\t'))]),
   Assign(
-    targets=[Name(id='constants')],
+    targets=[Name(
+      id='constants',
+      ctx=Store())],
     value=Dict(
       keys=[
         Constant(value='true'),

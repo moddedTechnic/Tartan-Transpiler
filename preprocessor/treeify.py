@@ -30,6 +30,10 @@ class Treeify(Transformer):
 	def LoadName(id: str):
 		return Name(id=id, ctx=Load())
 
+	@staticmethod
+	def StoreName(id: str):
+		return Name(id=id, ctx=Store())
+
 	def const_true(self, _):
 		return self.Constant(True)
 
@@ -70,6 +74,17 @@ class Treeify(Transformer):
 				annotation = value.children[0]
 				value = value.children[1]
 
+		temp = []
+		for n in name:
+			if isinstance(n, Name):
+				n = self.StoreName(id=n.id)
+			temp.append(n)
+		name = temp.copy()
+
+		if annotation is not None or augment is not None:
+			if isinstance(name, list):
+				name = name[0]
+
 		if augment is not None:
 			func: Union[None, Add, Sub, Mult, MatMult, Div, FloorDiv, Mod, Pow, BitAnd, BitOr, BitXor] = None
 			aug: Token = augment.children[0]
@@ -98,8 +113,12 @@ class Treeify(Transformer):
 				)
 
 		if annotation is not None:
+			if isinstance(annotation, list):
+				annotation = annotation[0]
+			if isinstance(annotation, Name):
+				annotation = self.LoadName(annotation.id)
 			return AnnAssign(
-				targets=name,
+				target=name,
 				value=value,
 				simple=1,
 				annotation=annotation
