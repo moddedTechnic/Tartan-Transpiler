@@ -301,3 +301,15 @@ class Treeify(Transformer):
 		with_item = withitem(with_item, vars_)
 		items = [with_item]
 		return With(items=items, body=body)
+
+	def number(self, n):
+		n: Token = n[0]
+		value = {
+			'DEC_NUMBER': lambda x: int(x),
+			'HEX_NUMBER': lambda x: int(x, 16),
+			'OCT_NUMBER': lambda x: int(x, 8),
+			'BIN_NUMBER': lambda x: int(x, 2),
+			'FLOAT_NUMBER': lambda x: float(x),
+			'IMAG_NUMBER': lambda x: x,
+		}.get(n.type, lambda x: x)(n.value)
+		return self.Constant(value)

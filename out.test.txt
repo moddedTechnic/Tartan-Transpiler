@@ -17,7 +17,7 @@ Module(body=[
         targets=[Name(
           id='fpath',
           ctx=Store())],
-        value=Tree('getitem', [[Name(id='argv')], Tree('subscriptlist', [Tree('subscript', [Tree('number', [Token('DEC_NUMBER', '1')])])])])),
+        value=Tree('getitem', [[Name(id='argv')], Tree('subscriptlist', [Tree('subscript', [Constant(value=1)])])])),
       With(
         items=[withitem(
           context_expr=Call(
