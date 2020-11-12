@@ -198,6 +198,7 @@ class Treeify(Transformer):
 				if isinstance(arg, Tree):
 					if arg.data == 'var':
 						args_.append(arg.children[0])
+						continue
 					elif arg.data == 'argvalue':
 						name, value = arg.children
 						if isinstance(name, Tree):
@@ -205,8 +206,8 @@ class Treeify(Transformer):
 						if isinstance(name, list):
 							name = name[0]
 						kwargs.append((name, value))
-				else:
-					args_.append(arg)
+						continue
+				args_.append(arg)
 
 			temp = []
 			for kwarg in kwargs:
@@ -224,6 +225,9 @@ class Treeify(Transformer):
 
 		if isinstance(func, list):
 			func = func[0]
+
+		if isinstance(func, Attribute) and isinstance(args, Tree):
+			print(args.children)
 
 		return Call(
 			func=func,
