@@ -70,10 +70,12 @@ Module(body=[
           args=[],
           keywords=[])),
       IfExp(
-        test=Tree('not', [Call(
-  func=Name(id='exists'),
-  args=[],
-  keywords=[])]),
+        test=UnaryOp(
+          op=Not(),
+          operand=Call(
+            func=Name(id='exists'),
+            args=[],
+            keywords=[])),
         body=[Call(
           func=Name(id='mkdir'),
           args=[],

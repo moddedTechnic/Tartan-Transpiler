@@ -2,7 +2,7 @@ from ast import (Add, AnnAssign, Assign, Attribute, AugAssign, BitAnd, BitOr,
                  BitXor, Call, Compare, Constant, Dict, Div, Eq, FloorDiv, For,
                  FunctionDef, Gt, GtE, IfExp, Load, LShift, Lt, LtE, MatMult,
                  Mod, Module, Mult, Name, NotEq, Pow, RShift, Store, Sub, With,
-                 keyword, withitem)
+                 keyword, withitem, UnaryOp, Not)
 from typing import Any, List, Union
 
 from astunparse import dump
@@ -14,7 +14,7 @@ for elem in (Add, AnnAssign, Assign, Attribute, AugAssign, BitAnd, BitOr,
 			 BitXor, Call, Compare, Constant, Dict, Div, Eq, FloorDiv, For,
 			 FunctionDef, Gt, GtE, IfExp, Load, LShift, Lt, LtE, MatMult,
 			 Mod, Module, Mult, Name, NotEq, Pow, RShift, Store, Sub,
-			 keyword, With, withitem):
+			 keyword, With, withitem, UnaryOp, Not):
 	setattr(elem, '__str__', lambda self: dump(self))
 	setattr(elem, '__repr__', lambda self: str(self))
 
@@ -313,3 +313,6 @@ class Treeify(Transformer):
 			'IMAG_NUMBER': lambda x: x,
 		}.get(n.type, lambda x: x)(n.value)
 		return self.Constant(value)
+
+	def not_expr(self, n):
+		return UnaryOp(Not(), n[0])
