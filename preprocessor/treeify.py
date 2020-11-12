@@ -192,3 +192,6 @@ class Treeify(Transformer):
 		if isinstance(v, Tree):
 			return v.children[0]
 		return v
+
+	def compound_stmt(self, c):
+		return c[0]

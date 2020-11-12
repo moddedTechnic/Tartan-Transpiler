@@ -3,14 +3,12 @@ file_input
   AugAssign(target=[Name(id='node')], op=Add(), value=Tree('testlist', [Constant(value="'e'")]))
   Call(func=[Name(id='print')], args=[], keywords=[keyword(arg='sep', value=Constant(value="', '")), keyword(arg='end', value=Constant(value="'\\n\\t'"))])
   Assign(targets=[[Name(id='constants')]], value=Dict(keys=[Constant(value="'true'"), Constant(value=True), Constant(value="'false'"), Constant(value=False), Constant(value="'null'"), Constant(value=None), Constant(value="'noop'")], values=[Constant(value=True), Constant(value="'false'"), Constant(value=False), Constant(value="'null'"), Constant(value=None), Constant(value="'noop'"), Constant(value=None)]))
-  compound_stmt
-    for_stmt
-      exprlist
-        [Name(id='k')]
-        [Name(id='v')]
-      testlist	Call(func=Tree('getattr', [[Name(id='constants')], Name(id='items')]), args=[], keywords=[])
-      suite
-        compound_stmt
-          if_stmt
-            Compare(left=[Name(id='node')], ops=[Eq()], comparators=[[Name(id='k')]])
-            suite	Call(func=[Name(id='print')], args=[], keywords=[])
+  for_stmt
+    exprlist
+      [Name(id='k')]
+      [Name(id='v')]
+    testlist	Call(func=Tree('getattr', [[Name(id='constants')], Name(id='items')]), args=[], keywords=[])
+    suite
+      if_stmt
+        Compare(left=[Name(id='node')], ops=[Eq()], comparators=[[Name(id='k')]])
+        suite	Call(func=[Name(id='print')], args=[], keywords=[])
