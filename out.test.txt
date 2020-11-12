@@ -22,7 +22,9 @@ Module(body=[
         items=[withitem(
           context_expr=Call(
             func=Name(id='open'),
-            args=[],
+            args=[
+              [Name(id='fpath')],
+              Constant(value='r')],
             keywords=[]),
           optional_vars=[Name(id='f')])],
         body=[Assign(
@@ -51,7 +53,7 @@ Module(body=[
             attr=Name(
               id='split',
               ctx=Load())),
-          args=[],
+          args=[Constant(value='.')],
           keywords=[])),
       Assign(
         targets=[Name(
@@ -59,7 +61,19 @@ Module(body=[
           ctx=Store())],
         value=Call(
           func=Name(id='join'),
-          args=[],
+          args=[
+            Constant(value='dist'),
+            BinOp(
+              left=Call(
+                func=Attribute(
+                  value=Constant(value=''),
+                  attr=Name(
+                    id='join',
+                    ctx=Load())),
+                args=[],
+                keywords=[]),
+              op=Add(),
+              right=Constant(value='.py'))],
           keywords=[])),
       Assign(
         targets=[Name(
@@ -67,25 +81,27 @@ Module(body=[
           ctx=Store())],
         value=Call(
           func=Name(id='dirname'),
-          args=[],
+          args=[[Name(id='out_path')]],
           keywords=[])),
       IfExp(
         test=UnaryOp(
           op=Not(),
           operand=Call(
             func=Name(id='exists'),
-            args=[],
+            args=[[Name(id='out_dir')]],
             keywords=[])),
         body=[Call(
           func=Name(id='mkdir'),
-          args=[],
+          args=[[Name(id='out_dir')]],
           keywords=[])],
         orelse=None),
       With(
         items=[withitem(
           context_expr=Call(
             func=Name(id='open'),
-            args=[],
+            args=[
+              [Name(id='out_path')],
+              Constant(value='w')],
             keywords=[]),
           optional_vars=[Name(id='f')])],
         body=[Call(
@@ -96,6 +112,6 @@ Module(body=[
             attr=Name(
               id='write',
               ctx=Load())),
-          args=[],
+          args=[[Name(id='code')]],
           keywords=[])])],
     decorator_list=[])])
