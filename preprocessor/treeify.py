@@ -120,9 +120,21 @@ class Treeify(Transformer):
 			'>=': GtE,
 		}.get(check.value, None)
 
+		if isinstance(x, list):
+			x = x[0]
+
 		if isinstance(x, Tree):
 			if x.data == 'var':
 				x = x.children[0]
+				
+		if isinstance(y, list):
+			temp = []
+			for i in y:
+				if isinstance(i, Tree):
+					if i.data == 'var':
+						i = i.children[0]
+				temp.append(i)
+			y = temp
 		if isinstance(y, Tree):
 			if y.data == 'var':
 				y = y.children[0]
