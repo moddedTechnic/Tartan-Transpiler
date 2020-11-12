@@ -21,5 +21,5 @@ for k, v in constants.items():
 	print(node)''')
 
 	with open('out.test.txt', 'w') as f:
-		f.write(tree.pretty())
+		f.write(str(tree))
 

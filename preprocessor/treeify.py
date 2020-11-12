@@ -1,9 +1,10 @@
 from ast import (Add, AnnAssign, Assign, AugAssign, BitAnd, BitOr, BitXor,
                  Call, Compare, Constant, Dict, Div, Eq, FloorDiv, For, Gt,
-                 GtE, IfExp, Load, LShift, Lt, LtE, MatMult, Mod, Mult, Name,
-                 NotEq, Pow, RShift, Store, Sub, dump, keyword)
+                 GtE, IfExp, Load, LShift, Lt, LtE, MatMult, Mod, Module, Mult,
+                 Name, NotEq, Pow, RShift, Store, Sub, keyword)
 from typing import Any, List, Union
 
+from astunparse import dump
 from lark import Transformer
 from lark.lexer import Token
 from lark.tree import Tree
@@ -11,7 +12,7 @@ from lark.tree import Tree
 for elem in (Add, AnnAssign, Assign, AugAssign, BitAnd, BitOr, BitXor,
                  Call, Compare, Constant, Dict, Div, Eq, FloorDiv, Gt, GtE,
                  Load, LShift, Lt, LtE, MatMult, Mod, Mult, Name, NotEq, Pow,
-                 RShift, Store, Sub, keyword, IfExp, For):
+                 RShift, Store, Sub, keyword, IfExp, For, Module):
 	setattr(elem, '__str__', lambda self: dump(self))
 	setattr(elem, '__repr__', lambda self: str(self))
 
@@ -238,3 +239,6 @@ class Treeify(Transformer):
 			iter=check,
 			body=body
 		)
+
+	def file_input(self, f):
+		return Module(body=f)
