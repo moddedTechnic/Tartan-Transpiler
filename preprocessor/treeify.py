@@ -1,7 +1,7 @@
-from ast import (Add, AnnAssign, Assign, AugAssign, BitAnd, BitOr, BitXor,
-                 Call, Compare, Constant, Dict, Div, Eq, FloorDiv, For, Gt,
-                 GtE, IfExp, Load, LShift, Lt, LtE, MatMult, Mod, Module, Mult,
-                 Name, NotEq, Pow, RShift, Store, Sub, keyword)
+from ast import (Add, AnnAssign, Assign, Attribute, AugAssign, BitAnd, BitOr,
+                 BitXor, Call, Compare, Constant, Dict, Div, Eq, FloorDiv, For,
+                 Gt, GtE, IfExp, Load, LShift, Lt, LtE, MatMult, Mod, Module,
+                 Mult, Name, NotEq, Pow, RShift, Store, Sub, keyword)
 from typing import Any, List, Union
 
 from astunparse import dump
@@ -12,7 +12,7 @@ from lark.tree import Tree
 for elem in (Add, AnnAssign, Assign, AugAssign, BitAnd, BitOr, BitXor,
                  Call, Compare, Constant, Dict, Div, Eq, FloorDiv, Gt, GtE,
                  Load, LShift, Lt, LtE, MatMult, Mod, Mult, Name, NotEq, Pow,
-                 RShift, Store, Sub, keyword, IfExp, For, Module):
+                 RShift, Store, Sub, keyword, IfExp, For, Module, Attribute):
 	setattr(elem, '__str__', lambda self: dump(self))
 	setattr(elem, '__repr__', lambda self: str(self))
 
@@ -25,6 +25,10 @@ class Treeify(Transformer):
 		if node is None:
 			return Constant(value=value)
 		return Constant(value=value, lineno=node.line, col_offset=node.column)
+
+	@staticmethod
+	def LoadName(id: str):
+		return Name(id=id, ctx=Load())
 
 	def const_true(self, _):
 		return self.Constant(True)
@@ -242,3 +246,12 @@ class Treeify(Transformer):
 
 	def file_input(self, f):
 		return Module(body=f)
+
+	def getattr(self, g):
+		# get a from b
+		a, b = g
+		a = a[0]
+		return Attribute(
+			value=self.LoadName(b.id),
+			attr=self.LoadName(a.id)
+		)

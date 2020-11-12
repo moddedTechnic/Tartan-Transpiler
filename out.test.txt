@@ -41,7 +41,13 @@ Module(body=[
       Name(id='k'),
       Name(id='v')],
     iter=Call(
-      func=Tree('getattr', [[Name(id='constants')], Name(id='items')]),
+      func=Attribute(
+        value=Name(
+          id='items',
+          ctx=Load()),
+        attr=Name(
+          id='constants',
+          ctx=Load())),
       args=[],
       keywords=[]),
     body=[
