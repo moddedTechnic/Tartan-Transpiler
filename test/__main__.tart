@@ -1,9 +1,9 @@
-from ast import parse
-from os import makedirs as mkdir
-from os.path import dirname, exists, join
-from sys import argv
+from ast import parse;
+from os import makedirs as mkdir;
+from os.path import dirname, exists, join;
+from sys import argv;
 
-from astunparse import dump
+from astunparse import dump;
 
 from postprocessor import *;
 from utils import log, setup;
