@@ -4,6 +4,7 @@ if __name__ == '__main__':
 	tree = parse('''
 node: str = 'tru'
 node += 'e'
+print(node, sep=', ', end='\\n\\t')
 constants = {
 	'true': True,
 	'false': False,

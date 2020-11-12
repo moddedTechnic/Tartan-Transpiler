@@ -1,11 +1,19 @@
 from ast import (Add, AnnAssign, Assign, AugAssign, BitAnd, BitOr, BitXor,
-                 Compare, Constant, Dict, Div, FloorDiv, MatMult, Mod, Mult,
-                 Pow, Sub, Lt, LtE, Gt, GtE, Eq, NotEq, LShift, RShift)
+                 Call, Compare, Constant, Dict, Div, Eq, FloorDiv, Gt, GtE,
+                 Load, LShift, Lt, LtE, MatMult, Mod, Mult, Name, NotEq, Pow,
+                 RShift, Store, Sub, keyword, dump)
 from typing import Any, List, Union
 
 from lark import Transformer
 from lark.lexer import Token
 from lark.tree import Tree
+
+for elem in (Add, AnnAssign, Assign, AugAssign, BitAnd, BitOr, BitXor,
+                 Call, Compare, Constant, Dict, Div, Eq, FloorDiv, Gt, GtE,
+                 Load, LShift, Lt, LtE, MatMult, Mod, Mult, Name, NotEq, Pow,
+                 RShift, Store, Sub, keyword):
+	setattr(elem, '__str__', lambda self: dump(self))
+	setattr(elem, '__repr__', lambda self: str(self))
 
 
 class Treeify(Transformer):
@@ -98,8 +106,8 @@ class Treeify(Transformer):
 		)
 
 	def comparison(self, c):
-		x: Tree
-		y: Tree
+		x: Union[Tree, Name]
+		y: Union[Tree, Name]
 		check: Token
 		x, check, y = c
 		
@@ -112,6 +120,18 @@ class Treeify(Transformer):
 			'>=': GtE,
 		}.get(check.value, None)
 
+		if isinstance(x, Tree):
+			if x.data == 'var':
+				x = x.children[0]
+		if isinstance(y, Tree):
+			if y.data == 'var':
+				y = y.children[0]
+
+		if isinstance(x, Name):
+			x = Name(id=x.id, ctx=Load())
+		if isinstance(y, Name):
+			y = Name(id=y.id, ctx=Load())
+
 		if func is not None:
 			return Compare(
 				left=x,
@@ -121,3 +141,54 @@ class Treeify(Transformer):
 
 		else:
 			raise TypeError(f'Unrecognised comparison operator: {check.value}')
+
+	def funccall(self, f: List[Tree]):
+		func = f[0]
+		args = None
+		if len(f) > 1: args = f[1]
+
+		if args is not None:
+			arguments = args.children
+			
+			args_ = []
+			kwargs = []
+			
+			for arg in arguments:
+				if isinstance(arg, Tree):
+					if arg.data == 'var':
+						args_.append(arg.children[0])
+					elif arg.data == 'argvalue':
+						name, value = arg.children
+						if isinstance(name, Tree):
+							name = name.children
+						if isinstance(name, list):
+							name = name[0]
+						kwargs.append((name, value))
+
+			temp = []
+			for kwarg in kwargs:
+				name, value = kwarg
+				if isinstance(name, Token):
+					name = name.value
+				elif isinstance(name, Name):
+					name = name.id
+				temp.append(keyword(arg=name, value=value))
+			kwargs = temp.copy()
+
+		else:
+			args_ = []
+			kwargs = []
+
+		return Call(
+			func=func,
+			args=args_,
+			keywords=kwargs
+		)
+
+	def NAME(self, n: Token):
+		return Name(n.value)
+
+	def var(self, v):
+		if isinstance(v, Tree):
+			return v.children[0]
+		return v

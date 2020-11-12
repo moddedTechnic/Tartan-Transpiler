@@ -1,29 +1,16 @@
 file_input
-  <_ast.AnnAssign object at 0x000001D614002D60>
-  <_ast.AugAssign object at 0x000001D613FE8F40>
-  <_ast.Assign object at 0x000001D613EEE460>
+  AnnAssign(annotation=[Name(id='str')], value=Constant(value="'tru'"), simple=1)
+  AugAssign(target=[Name(id='node')], op=Add(), value=Tree('testlist', [Constant(value="'e'")]))
+  Call(func=[Name(id='print')], args=[], keywords=[keyword(arg='sep', value=Constant(value="', '")), keyword(arg='end', value=Constant(value="'\\n\\t'"))])
+  Assign(targets=[[Name(id='constants')]], value=Dict(keys=[Constant(value="'true'"), Constant(value=True), Constant(value="'false'"), Constant(value=False), Constant(value="'null'"), Constant(value=None), Constant(value="'noop'")], values=[Constant(value=True), Constant(value="'false'"), Constant(value=False), Constant(value="'null'"), Constant(value=None), Constant(value="'noop'"), Constant(value=None)]))
   compound_stmt
     for_stmt
       exprlist
-        var	k
-        var	v
-      testlist
-        funccall
-          getattr
-            var	constants
-            items
+        [Name(id='k')]
+        [Name(id='v')]
+      testlist	Call(func=Tree('getattr', [[Name(id='constants')], Name(id='items')]), args=[], keywords=[])
       suite
         compound_stmt
           if_stmt
-            <_ast.Compare object at 0x000001D614077E20>
-            suite
-              funccall
-                var	print
-                arguments
-                  funccall
-                    getattr
-                      var	self
-                      constant
-                    arguments
-                      var	v
-                      var	node
+            Compare(left=[Name(id='node')], ops=[Eq()], comparators=[[Name(id='k')]])
+            suite	Call(func=[Name(id='print')], args=[], keywords=[])
