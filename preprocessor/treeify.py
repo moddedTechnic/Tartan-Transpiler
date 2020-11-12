@@ -126,7 +126,7 @@ class Treeify(Transformer):
 		if isinstance(x, Tree):
 			if x.data == 'var':
 				x = x.children[0]
-				
+
 		if isinstance(y, list):
 			temp = []
 			for i in y:
@@ -217,4 +217,16 @@ class Treeify(Transformer):
 		)
 
 	def suite(self, s):
-		return s[0]
+		return s
+
+	def testlist(self, t):
+		return t[0]
+
+	def exprlist(self, e):
+		temp = []
+		for i in e:
+			if isinstance(i, list):
+				if len(i) == 1:
+					i = i[0]
+			temp.append(i)
+		return temp
