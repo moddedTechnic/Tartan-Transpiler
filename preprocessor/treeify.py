@@ -419,12 +419,16 @@ class Treeify(Transformer):
 		if isinstance(name, list):
 			name = name[0]
 
+		if isinstance(name, Name):
+			name = self.LoadName(name.id)
+
 		if isinstance(accessor, Tree):
 			if accessor.data == 'subscriptlist':
 				accessor = accessor.children[0]
 				return Subscript(
 					value=name,
-					slice=accessor
+					slice=accessor,
+					ctx=Load()
 				)
 
 		return Tree(data='getitem', children=g)

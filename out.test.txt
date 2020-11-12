@@ -67,8 +67,11 @@ Module(body=[
           id='fpath',
           ctx=Store())],
         value=Subscript(
-          value=Name(id='argv'),
-          slice=Index(value=Constant(value=1)))),
+          value=Name(
+            id='argv',
+            ctx=Load()),
+          slice=Index(value=Constant(value=1)),
+          ctx=Load())),
       With(
         items=[withitem(
           context_expr=Call(
@@ -122,10 +125,13 @@ Module(body=[
                     id='join',
                     ctx=Load())),
                 args=[Subscript(
-                  value=Name(id='path_parts'),
+                  value=Name(
+                    id='path_parts',
+                    ctx=Load()),
                   slice=Index(value=UnaryOp(
                     op=USub(),
-                    operand=Constant(value=1))))],
+                    operand=Constant(value=1))),
+                  ctx=Load())],
                 keywords=[]),
               op=Add(),
               right=Constant(value='.py'))],
