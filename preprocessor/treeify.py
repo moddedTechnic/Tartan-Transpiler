@@ -1,8 +1,8 @@
 from ast import (Add, AnnAssign, Assign, Attribute, AugAssign, BitAnd, BitOr,
-				 BitXor, Call, Compare, Constant, Dict, Div, Eq, FloorDiv, For,
-				 FunctionDef, Gt, GtE, IfExp, Load, LShift, Lt, LtE, MatMult,
-				 Mod, Module, Mult, Name, NotEq, Pow, RShift, Store, Sub,
-				 keyword)
+                 BitXor, Call, Compare, Constant, Dict, Div, Eq, FloorDiv, For,
+                 FunctionDef, Gt, GtE, IfExp, Load, LShift, Lt, LtE, MatMult,
+                 Mod, Module, Mult, Name, NotEq, Pow, RShift, Store, Sub, With,
+                 keyword, withitem)
 from typing import Any, List, Union
 
 from astunparse import dump
@@ -14,7 +14,7 @@ for elem in (Add, AnnAssign, Assign, Attribute, AugAssign, BitAnd, BitOr,
 			 BitXor, Call, Compare, Constant, Dict, Div, Eq, FloorDiv, For,
 			 FunctionDef, Gt, GtE, IfExp, Load, LShift, Lt, LtE, MatMult,
 			 Mod, Module, Mult, Name, NotEq, Pow, RShift, Store, Sub,
-			 keyword):
+			 keyword, With, withitem):
 	setattr(elem, '__str__', lambda self: dump(self))
 	setattr(elem, '__repr__', lambda self: str(self))
 
@@ -294,3 +294,10 @@ class Treeify(Transformer):
 		if isinstance(name, Name):
 			name = name.id
 		return FunctionDef(name=name, args=[], body=body, decorator_list=[])
+
+	def with_stmt(self, w):
+		with_item, body = w
+		with_item, vars_ = with_item.children
+		with_item = withitem(with_item, vars_)
+		items = [with_item]
+		return With(items=items, body=body)

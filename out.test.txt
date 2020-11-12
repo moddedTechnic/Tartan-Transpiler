@@ -18,23 +18,27 @@ Module(body=[
           id='fpath',
           ctx=Store())],
         value=Tree('getitem', [[Name(id='argv')], Tree('subscriptlist', [Tree('subscript', [Tree('number', [Token('DEC_NUMBER', '1')])])])])),
-      Tree('with_stmt', [Tree('with_item', [Call(
-  func=Name(id='open'),
-  args=[],
-  keywords=[]), [Name(id='f')]]), [Assign(
-  targets=[Name(
-    id='data',
-    ctx=Store())],
-  value=Call(
-    func=Attribute(
-      value=Name(
-        id='f',
-        ctx=Load()),
-      attr=Name(
-        id='read',
-        ctx=Load())),
-    args=[],
-    keywords=[]))]]),
+      With(
+        items=[withitem(
+          context_expr=Call(
+            func=Name(id='open'),
+            args=[],
+            keywords=[]),
+          optional_vars=[Name(id='f')])],
+        body=[Assign(
+          targets=[Name(
+            id='data',
+            ctx=Store())],
+          value=Call(
+            func=Attribute(
+              value=Name(
+                id='f',
+                ctx=Load()),
+              attr=Name(
+                id='read',
+                ctx=Load())),
+            args=[],
+            keywords=[]))]),
       Assign(
         targets=[Name(
           id='path_parts',
@@ -75,17 +79,21 @@ Module(body=[
           args=[],
           keywords=[])],
         orelse=None),
-      Tree('with_stmt', [Tree('with_item', [Call(
-  func=Name(id='open'),
-  args=[],
-  keywords=[]), [Name(id='f')]]), [Call(
-  func=Attribute(
-    value=Name(
-      id='f',
-      ctx=Load()),
-    attr=Name(
-      id='write',
-      ctx=Load())),
-  args=[],
-  keywords=[])]])],
+      With(
+        items=[withitem(
+          context_expr=Call(
+            func=Name(id='open'),
+            args=[],
+            keywords=[]),
+          optional_vars=[Name(id='f')])],
+        body=[Call(
+          func=Attribute(
+            value=Name(
+              id='f',
+              ctx=Load()),
+            attr=Name(
+              id='write',
+              ctx=Load())),
+          args=[],
+          keywords=[])])],
     decorator_list=[])])
