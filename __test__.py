@@ -9,7 +9,7 @@ if __name__ == '__main__':
 		code = f.read()
 
 	tree = parse(code)
-	tree = unparse(tree)
+	# tree = unparse(tree)
 
 	with open('out.test.txt', 'w') as f:
 		f.write(str(tree))
