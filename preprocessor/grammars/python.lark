@@ -177,7 +177,7 @@ string: STRING | LONG_STRING
 // Other terminals
 
 COMMENT: /##[^\n]*/
-MULTILINE_COMMENT: "#{" /(.|\n)*/ "}#"
+MULTILINE_COMMENT: "#{" /(.|\n)*?/ "}#"
 
 DEC_NUMBER: /(0d)?\d+/i
 ASYNC: "async"
