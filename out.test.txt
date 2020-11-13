@@ -1,190 +1,29 @@
-Module(body=[
-  ImportFrom(
-    module='ast',
-    names=[alias(
-      name='parse',
-      asname=None)],
-    level=0),
-  ImportFrom(
-    module='os',
-    names=[alias(
-      name='makedirs',
-      asname='mkdir')],
-    level=0),
-  ImportFrom(
-    module='os.path',
-    names=[
-      alias(
-        name='dirname',
-        asname=None),
-      alias(
-        name='exists',
-        asname=None),
-      alias(
-        name='join',
-        asname=None)],
-    level=0),
-  ImportFrom(
-    module='sys',
-    names=[alias(
-      name='argv',
-      asname=None)],
-    level=0),
-  ImportFrom(
-    module='astunparse',
-    names=[alias(
-      name='dump',
-      asname=None)],
-    level=0),
-  ImportFrom(
-    module='postprocessor',
-    names=[alias(
-      name='*',
-      asname=None)],
-    level=0),
-  ImportFrom(
-    module='utils',
-    names=[
-      alias(
-        name='log',
-        asname=None),
-      alias(
-        name='setup',
-        asname=None)],
-    level=0),
-  ImportFrom(
-    module='utils.options',
-    names=[alias(
-      name='Options',
-      asname=None)],
-    level=0),
-  ImportFrom(
-    module='utils.unparser',
-    names=[alias(
-      name='Unparser',
-      asname=None)],
-    level=0),
-  ImportFrom(
-    module='transpiler',
-    names=[alias(
-      name='Transpiler',
-      asname=None)],
-    level=0),
-  FunctionDef(
-    name='main',
-    args=[],
-    body=[
-      Assign(
-        targets=[Name(
-          id='fpath',
-          ctx=Store())],
-        value=Subscript(
-          value=Name(
-            id='argv',
-            ctx=Load()),
-          slice=Index(value=Constant(value=1)),
-          ctx=Load())),
-      With(
-        items=[withitem(
-          context_expr=Call(
-            func=Name(id='open'),
-            args=[
-              Name(id='fpath'),
-              Constant(value='r')],
-            keywords=[]),
-          optional_vars=[Name(id='f')])],
-        body=[Assign(
-          targets=[Name(
-            id='data',
-            ctx=Store())],
-          value=Call(
-            func=Attribute(
-              value=Name(
-                id='f',
-                ctx=Load()),
-              attr=Name(
-                id='read',
-                ctx=Load())),
-            args=[],
-            keywords=[]))]),
-      Assign(
-        targets=[Name(
-          id='path_parts',
-          ctx=Store())],
-        value=Call(
-          func=Attribute(
-            value=Name(
-              id='fpath',
-              ctx=Load()),
-            attr=Name(
-              id='split',
-              ctx=Load())),
-          args=[Constant(value='.')],
-          keywords=[])),
-      Assign(
-        targets=[Name(
-          id='out_path',
-          ctx=Store())],
-        value=Call(
-          func=Name(id='join'),
-          args=[
-            Constant(value='dist'),
-            BinOp(
-              left=Call(
-                func=Attribute(
-                  value=Constant(value=''),
-                  attr=Name(
-                    id='join',
-                    ctx=Load())),
-                args=[Subscript(
-                  value=Name(
-                    id='path_parts',
-                    ctx=Load()),
-                  slice=Index(value=UnaryOp(
-                    op=USub(),
-                    operand=Constant(value=1))),
-                  ctx=Load())],
-                keywords=[]),
-              op=Add(),
-              right=Constant(value='.py'))],
-          keywords=[])),
-      Assign(
-        targets=[Name(
-          id='out_dir',
-          ctx=Store())],
-        value=Call(
-          func=Name(id='dirname'),
-          args=[Name(id='out_path')],
-          keywords=[])),
-      IfExp(
-        test=UnaryOp(
-          op=Not(),
-          operand=Call(
-            func=Name(id='exists'),
-            args=[Name(id='out_dir')],
-            keywords=[])),
-        body=[Call(
-          func=Name(id='mkdir'),
-          args=[Name(id='out_dir')],
-          keywords=[])],
-        orelse=[None]),
-      With(
-        items=[withitem(
-          context_expr=Call(
-            func=Name(id='open'),
-            args=[
-              Name(id='out_path'),
-              Constant(value='w')],
-            keywords=[]),
-          optional_vars=[Name(id='f')])],
-        body=[Call(
-          func=Attribute(
-            value=Name(
-              id='f',
-              ctx=Load()),
-            attr=Name(
-              id='write',
-              ctx=Load())),
-          args=[Name(id='code')],
-          keywords=[])])],
-    decorator_list=[])])
+
+from ast import parse
+from os import makedirs as mkdir
+from os.path import dirname, exists, join
+from sys import argv
+from astunparse import dump
+from postprocessor import *
+from utils import log, setup
+from utils.options import Options
+from utils.unparser import Unparser
+from transpiler import Transpiler
+
+def main():
+    fpath = argv[1]
+    with open(fpath, 'r') as f:
+        data = f.Name(
+  id='read',
+  ctx=Load())()
+    path_parts = fpath.Name(
+  id='split',
+  ctx=Load())('.')
+    out_path = join('dist', (''.Name(
+  id='join',
+  ctx=Load())(path_parts[(- 1)]) + '.py'))
+    out_dir = dirname(out_path)
+    if (not exists(out_dir)):mkdir(out_dir)
+    with open(out_path, 'w') as f:f.Name(
+  id='write',
+  ctx=Load())(code)

@@ -1,6 +1,6 @@
 from ast import (Add, AnnAssign, Assign, Attribute, AugAssign, BinOp, BitAnd,
                  BitOr, BitXor, Call, Compare, Constant, Dict, Div, Eq,
-                 FloorDiv, For, FunctionDef, Gt, GtE, IfExp, ImportFrom, Index,
+                 FloorDiv, For, FunctionDef, Gt, GtE, If, ImportFrom, Index,
                  Load, LShift, Lt, LtE, MatMult, Mod, Module, Mult, Name, Not,
                  NotEq, Pow, RShift, Slice, Store, Sub, Subscript, UAdd,
                  UnaryOp, USub, With, alias, keyword, withitem)
@@ -13,7 +13,7 @@ from lark.tree import Tree
 
 for elem in (Add, AnnAssign, Assign, Attribute, AugAssign, BitAnd, BitOr,
 			 BitXor, Call, Compare, Constant, Dict, Div, Eq, FloorDiv, For,
-			 FunctionDef, Gt, GtE, IfExp, Load, LShift, Lt, LtE, MatMult,
+			 FunctionDef, Gt, GtE, If, Load, LShift, Lt, LtE, MatMult,
 			 Mod, Module, Mult, Name, NotEq, Pow, RShift, Store, Sub,
 			 keyword, With, withitem, UnaryOp, Not, BinOp, alias, ImportFrom, UAdd, USub, Index, Slice, Subscript):
 	setattr(elem, '__str__', lambda self: dump(self))
@@ -262,10 +262,10 @@ class Treeify(Transformer):
 
 	def if_stmt(self, i):
 		check, block = i
-		return IfExp(
+		return If(
 			test=check,
 			body=block,
-			orelse=[None]
+			orelse=None
 		)
 
 	def suite(self, s):
