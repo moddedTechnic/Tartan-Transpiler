@@ -350,7 +350,7 @@ class Treeify(Transformer):
 	def import_from(self, i):
 		if len(i) == 1:
 			module = i[0]
-			names = '*'
+			names = alias(name='*', asname=None)
 		else:
 			module, names = i
 

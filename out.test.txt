@@ -38,7 +38,9 @@ Module(body=[
     level=0),
   ImportFrom(
     module='postprocessor',
-    names=['*'],
+    names=[alias(
+      name='*',
+      asname=None)],
     level=0),
   ImportFrom(
     module='utils',
