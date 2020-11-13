@@ -167,7 +167,7 @@ Module(body=[
           func=Name(id='mkdir'),
           args=[Name(id='out_dir')],
           keywords=[])],
-        orelse=None),
+        orelse=[None]),
       With(
         items=[withitem(
           context_expr=Call(

@@ -24,10 +24,21 @@ class Treeify(Transformer):
 	DICT_OR_SET_MAKER = 'dictorsetmaker'
 
 	@staticmethod
-	def Constant(value: Any, node: Union[Token, None] = None) -> Constant:
-		if node is None:
-			return Constant(value=value)
-		return Constant(value=value, lineno=node.line, col_offset=node.column)
+	def Constant(value: Any, node: Union[Token, None] = None, kind = None) -> Constant:
+		args = {
+			'value': value,
+		}
+
+		if node is not None:
+			args['lineno'] = node.line
+			args['col_offset'] = node.column
+
+		if kind is not None:
+			args['kind'] = kind
+		else:
+			args['kind'] = type(value)
+		
+		return Constant(**args)
 
 	@staticmethod
 	def LoadName(id: str):
@@ -254,7 +265,7 @@ class Treeify(Transformer):
 		return IfExp(
 			test=check,
 			body=block,
-			orelse=None
+			orelse=[None]
 		)
 
 	def suite(self, s):
