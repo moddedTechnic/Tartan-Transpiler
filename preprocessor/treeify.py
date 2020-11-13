@@ -448,3 +448,7 @@ class Treeify(Transformer):
 				)
 
 		return Tree(data='getitem', children=g)
+
+	def list(self, l):
+		print(l)
+		return Tree(data='list', children=l)
