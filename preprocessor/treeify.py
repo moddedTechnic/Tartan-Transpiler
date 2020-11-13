@@ -207,6 +207,9 @@ class Treeify(Transformer):
 							name = name[0]
 						kwargs.append((name, value))
 						continue
+				if isinstance(arg, list):
+					[ args_.append(a) for a in arg ]
+					continue
 				args_.append(arg)
 
 			temp = []
