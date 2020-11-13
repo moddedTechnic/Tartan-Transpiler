@@ -13,17 +13,9 @@ from transpiler import Transpiler
 def main():
     fpath = argv[1]
     with open(fpath, 'r') as f:
-        data = f.Name(
-  id='read',
-  ctx=Load())()
-    path_parts = fpath.Name(
-  id='split',
-  ctx=Load())('.')
-    out_path = join('dist', (''.Name(
-  id='join',
-  ctx=Load())(path_parts[(- 1)]) + '.py'))
+        data = f.read()
+    path_parts = fpath.split('.')
+    out_path = join('dist', (''.join(path_parts[(- 1)]) + '.py'))
     out_dir = dirname(out_path)
     if (not exists(out_dir)):mkdir(out_dir)
-    with open(out_path, 'w') as f:f.Name(
-  id='write',
-  ctx=Load())(code)
+    with open(out_path, 'w') as f:f.write(code)
